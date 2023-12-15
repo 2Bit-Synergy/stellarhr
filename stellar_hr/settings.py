@@ -28,11 +28,23 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # ...
+    'compressor.finders.CompressorFinder',
+]
 
 # Application definition
 
 INSTALLED_APPS = [
+    # Custom apps
     'apps.auth.apps',
+
+    # 3rd party apps
+    'compressor',
+
+    # django base apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,3 +136,23 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Compressor settings
+COMPRESS_ROOT = BASE_DIR / 'staticfiles'
+COMPRESS_ENABLED = True
+COMPRESS_PARSER = 'compressor.parser.HtmlParser'
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+COMPRESS_OUTPUT_DIR = 'CACHE'
+
+# Deploy SCSS in Django project
+# We can push our scss files to Git repo and they would be compiled in the deployment stage.
+
+# django_compressor provides a Django command for us to convert scss files to css files.
+
+# First, please add code below to your settings/production.py
+
+# COMPRESS_OFFLINE = True
+# LIBSASS_OUTPUT_STYLE = 'compressed'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'

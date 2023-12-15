@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView
 
 # Create your views here.
 
-class SignUpView(CreateView):
+class RegisterView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'auth/register.html'

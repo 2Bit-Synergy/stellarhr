@@ -1,4 +1,6 @@
 {% load static %}
+{% load compress %}
+
 <!DOCTYPE html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none">
     <head>
@@ -6,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="SterllarHR - Bootstrap Admin Template">
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
-        <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+        <meta name="author" content="2Bit Synergy - Bootstrap Admin Template">
         <title>Login - StellarHR</title>
 		
 		<!-- Favicon -->
@@ -26,9 +28,9 @@
 		<!-- Lineawesome CSS -->
 		<link rel="stylesheet" href="{% static 'css/line-awesome.min.css' %}">
 		
-		<!-- Main CSS -->
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+		{% compress css %}
+		<link type="text/x-scss" rel="stylesheet" href="{% static 'scss/main.scss' %}" >
+		{% endcompress %}
     </head>
     <body>
 		<!-- Main Wrapper -->
