@@ -39,7 +39,7 @@ STATICFILES_FINDERS = [
 
 INSTALLED_APPS = [
     # Custom apps
-    'apps.account.apps',
+    'apps.account.apps.AccountConfig',
 
     # 3rd party apps
     'compressor',
@@ -157,4 +157,6 @@ COMPRESS_OUTPUT_DIR = 'CACHE'
 # LIBSASS_OUTPUT_STYLE = 'compressed'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
-AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'account.User'
+
+LOGIN_REDIRECT_URL = '/'

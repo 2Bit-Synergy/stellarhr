@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
 class UserManager(BaseUserManager):
@@ -19,13 +19,16 @@ class UserManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
     
-class User(AbstractUser, PermissionsMixin):
+class User(AbstractUser):
     email = models.EmailField(unique=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+    
+    class Meta:
+        swappable = 'AUTH_USER_MODEL'
 
     def __str__(self):
         return self.email

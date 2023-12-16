@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView as DjangoLogoutView
+from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
@@ -17,8 +17,7 @@ class LoginView(DjangoLoginView):
     success_url = reverse_lazy('main')
     form_class = LoginForm
 
-class LogoutView(LoginRequiredMixin, LogoutView):
-    def post(self, request, *args, **kwargs):
-        super().post(request, *args, **kwargs)
-
-        return redirect("apps.account:login")
+def custom_logout(request):
+    logout(request)
+    # Redirect to the desired URL after logout
+    return redirect('/login')
