@@ -1552,7 +1552,7 @@
     } 
    
     .sidebar {
-        box-shadow: rgb(0, 0 , 0, 0.2);
+        box-shadow: rgba(0, 0 , 0, 0.2);
         background-color: #34444c;
         .sidebar-menu{
             .greedy ul li a:hover {
@@ -1657,7 +1657,7 @@
         }
         .sidebar {
             background-color: $__white;
-            box-shadow: rgb(0, 0 , 0, 0.2);
+            box-shadow: rgba(0, 0 , 0, 0.2);
              ul li span {
                 display: $__inline__block;
                 color: $__gray;

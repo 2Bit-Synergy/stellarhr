@@ -7,16 +7,8 @@
           <li class="menu-title">
             <span>Main</span>
           </li>
-          <li class="submenu">
-            <a href="#"><i class="la la-dashboard"></i> <span>Dashboard</span> <span class="menu-arrow"></span></a>
-            <ul>
-              <li>
-                <a href="admin-dashboard.html">Admin Dashboard</a>
-              </li>
-              <li>
-                <a href="employee-dashboard.html">Employee Dashboard</a>
-              </li>
-            </ul>
+          <li>
+            <a href="#"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
           </li>
           <li class="submenu">
             <a href="#"><i class="la la-cube"></i> <span>Apps</span> <span class="menu-arrow"></span></a>
@@ -494,17 +486,15 @@
         <li class="menu-title">
           <span>Main</span>
         </li>
-        <li class="submenu">
-          <a href="#"><i class="la la-dashboard"></i> <span>Dashboard</span> <span class="menu-arrow"></span></a>
-          <ul>
-            <li>
-              <a class="active" href="admin-dashboard.html">Admin Dashboard</a>
-            </li>
-            <li>
-              <a href="employee-dashboard.html">Employee Dashboard</a>
-            </li>
-          </ul>
+        {% if request.path == '/' %}
+        <li class="active">
+          <a href="#"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
         </li>
+        {% else %}
+        <li>
+          <a href="#"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
+        </li>
+        {% endif %}
         <li class="submenu">
           <a href="#"><i class="la la-cube"></i> <span>Apps</span> <span class="menu-arrow"></span></a>
           <ul>

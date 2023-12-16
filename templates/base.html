@@ -1,6 +1,5 @@
 {% load static %}
 {% load compress %}
-
 <!DOCTYPE html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none">
     <head>
@@ -9,7 +8,7 @@
         <meta name="description" content="SterllarHR - Bootstrap Admin Template">
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="2Bit Synergy - Bootstrap Admin Template">
-        <title>Login - StellarHR</title>
+        <title>StellarHR</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
@@ -31,6 +30,8 @@
 		{% compress css %}
 		<link type="text/x-scss" rel="stylesheet" href="{% static 'scss/main.scss' %}" >
 		{% endcompress %}
+		{% comment %} CUSTOM CSS for specific pages {% endcomment %}
+		{% block css %}{% endblock %}
     </head>
     <body>
 		<!-- Main Wrapper -->
@@ -54,5 +55,7 @@
 		
 		<!-- Custom JS -->
 		<script src="{% static 'js/app.js' %}"></script>
+		{% comment %} Custom JS for specific pages {% endcomment %}
+		{% block js %}{% endblock %}
     </body>
 </html>
