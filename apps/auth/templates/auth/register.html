@@ -17,10 +17,11 @@
               <p class="account-subtitle">Access to our dashboard</p>
 
               <!-- Account Form -->
-              <form action="admin-dashboard.html">
+              <form method="POST" action="{% url 'auth:register' %}">
+                {% csrf_token %}
                 <div class="input-block mb-4">
                   <label class="col-form-label">Email<span class="mandatory">*</span></label>
-                  <input name="username" class="form-control" type="text" />
+                  <input name="username" class="form-control" type="email" />
                 </div>
                 <div class="input-block mb-4">
                   <label class="col-form-label">Password<span class="mandatory">*</span></label>

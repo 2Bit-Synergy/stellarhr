@@ -35,6 +35,11 @@
     <body>
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
+			{% if form.errors %}
+				<div class="alert alert-danger">
+				<strong>Error:</strong> {{ form.errors }}
+				</div>
+			{% endif %}
 			{% include 'layouts/header.html' %}
 			{% include 'layouts/sidebar.html' %}
 			{% block content %}{% endblock %}

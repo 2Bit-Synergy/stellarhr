@@ -156,3 +156,5 @@ COMPRESS_OUTPUT_DIR = 'CACHE'
 # COMPRESS_OFFLINE = True
 # LIBSASS_OUTPUT_STYLE = 'compressed'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+AUTH_USER_MODEL = 'auth.User'
