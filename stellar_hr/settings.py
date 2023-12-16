@@ -39,7 +39,7 @@ STATICFILES_FINDERS = [
 
 INSTALLED_APPS = [
     # Custom apps
-    'apps.auth.apps',
+    'apps.account.apps',
 
     # 3rd party apps
     'compressor',

@@ -27,8 +27,8 @@ urlpatterns = [
     # Django Admin
     path('admin/', admin.site.urls),
 
-    # Auth app
-    path('', include('apps.auth.urls'))
+    # HRIS Account app
+    path('', include('apps.account.urls'))
 ]
 
 # Serve static files during development

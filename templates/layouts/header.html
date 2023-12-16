@@ -250,9 +250,9 @@
         <div class="dropdown-menu">
           <a class="dropdown-item" href="profile.html">My Profile</a>
           <a class="dropdown-item" href="settings.html">Settings</a>
-          <form action="{% url 'auth:logout' %}" method="post">
+          <form action="{% url 'account:logout' %}" method="post">
             {% csrf_token %}
-            <button class="dropdown-item btn btn-link" href="{% url 'auth:logout' %}">Logout</button>
+            <button class="dropdown-item btn btn-link" href="{% url 'account:logout' %}">Logout</button>
           </form>
         </div>
       </li>
