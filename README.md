@@ -28,10 +28,17 @@ StellarHR is a comprehensive Human Resources Information System (HRIS) designed 
    ```bash
    git@github.com:2Bit-Synergy/stellarhr.git
    ```
-2. Execute ./runserver.sh:
-   > [!NOTE]  
-   > make sure ./runserver.sh is set to executable, in linux "chmod +x ./runserver.sh", in windows just use git bash 
-   > This will install dependencies and migrate users 
+2. Navigate to directory
+   ```bash
+   cd stellarhr
+   ```
+3. Execute ./runserver.sh:
+   > [!NOTE]
+   > **For Unix System**
+   > make sure ./runserver.sh is set to executable, in linux "chmod +x ./runserver.sh"
+   > **For Windows**
+   > make you already installed python(!https://www.python.org/downloads)
+   > .\runserver.sh
 
    ```bash
    ./runserver.sh
