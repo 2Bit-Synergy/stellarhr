@@ -35,6 +35,8 @@
     <body>
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
+			{% include 'layouts/header.html' %}
+			{% include 'layouts/sidebar.html' %}
 			{% block content %}{% endblock %}
         </div>
 		<!-- /Main Wrapper -->
