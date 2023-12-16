@@ -17,7 +17,7 @@
               <p class="account-subtitle">Access to our dashboard</p>
 
               <!-- Account Form -->
-              <form method="POST" action="{% url 'account:register' %}">
+              <form method="POST" action="{% url 'apps.account:register' %}">
                 {% csrf_token %}
                 <div class="input-block mb-4">
                   <label class="col-form-label">Email<span class="mandatory">*</span></label>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="account-footer">
                   <p>
-                    Already have an account? <a href="{% url 'account:login' %}">Login</a>
+                    Already have an account? <a href="{% url 'apps.account:login' %}">Login</a>
                   </p>
                 </div>
               </form>

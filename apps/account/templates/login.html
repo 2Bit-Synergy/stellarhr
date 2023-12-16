@@ -20,7 +20,7 @@
 
               <!-- Account Form -->
               <form method="POST">
-				{% csrf_token %}
+				        {% csrf_token %}
                 <div class="input-block mb-4">
                   <label class="col-form-label">Email Address</label>
                   <input name="username" class="form-control" type="text" value="admin@2bitsynergy.com" />
@@ -44,7 +44,7 @@
                 </div>
                 <div class="account-footer">
                   <p>
-                    Don't have an account yet? <a href="{% url 'account:register' %}">Register</a>
+                    Don't have an account yet? <a href="{% url 'apps.account:register' %}">Register</a>
                   </p>
                 </div>
               </form>

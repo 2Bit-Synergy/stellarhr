@@ -21,14 +21,15 @@ from django.conf.urls.static import static
 from .views import MainView
 
 urlpatterns = [
-    # Home or Main View
-    path('', MainView.as_view(), name="main"),
-
+    
     # Django Admin
     path('admin/', admin.site.urls),
 
     # HRIS Account app
-    path('', include('apps.account.urls'))
+    path('', include('apps.account.urls')),
+
+    # Home or Main View
+    path('', MainView.as_view(), name="main"),
 ]
 
 # Serve static files during development
