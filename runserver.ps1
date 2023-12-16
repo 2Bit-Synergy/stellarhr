@@ -1,15 +1,15 @@
 # Check if Python is installed
-if (Test-Path -Path "$(Get-Command python -ErrorAction SilentlyContinue)") {
-    Write-Output "Python is installed"
-} else {
-    Write-Output "Python is not installed. Please install Python and run the script again."
-    exit 1
-}
+# if (Test-Path -Path "$(Get-Command python -ErrorAction SilentlyContinue)") {
+#     Write-Output "Python is installed"
+# } else {
+#     Write-Output "Python is not installed. Please install Python and run the script again."
+#     exit 1
+# }
 
-# Check if virtual environment exists, and create one if not
-if (-not (Test-Path -Path .\venv)) {
-    python -m venv venv
-}
+# # Check if virtual environment exists, and create one if not
+# if (-not (Test-Path -Path .\venv)) {
+# }
+python -m venv venv
 
 # Activate virtual environment
 . .\venv\Scripts\Activate
