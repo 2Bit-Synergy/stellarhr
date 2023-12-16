@@ -1,5 +1,6 @@
 {% load static %}
 
+{% if user.is_authencated %}
 <div class="header">
   <!-- Logo -->
   <div class="header-left">
@@ -266,3 +267,4 @@
   </div>
   <!-- /Mobile Menu -->
 </div>
+{% endif %}

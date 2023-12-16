@@ -21,8 +21,13 @@ from django.conf.urls.static import static
 from .views import MainView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # Home or Main View
     path('', MainView.as_view(), name="main"),
+
+    # Django Admin
+    path('admin/', admin.site.urls),
+
+    # Auth app
     path('', include('apps.auth.urls'))
 ]
 

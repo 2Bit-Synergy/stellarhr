@@ -19,7 +19,8 @@
               <p class="account-subtitle">Access to our dashboard</p>
 
               <!-- Account Form -->
-              <form action="admin-dashboard.html">
+              <form method="POST">
+				{% csrf_token %}
                 <div class="input-block mb-4">
                   <label class="col-form-label">Email Address</label>
                   <input name="username" class="form-control" type="text" value="admin@2bitsynergy.com" />
