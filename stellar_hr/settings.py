@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,10 +28,23 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # ...
+    'compressor.finders.CompressorFinder',
+]
 
 # Application definition
 
 INSTALLED_APPS = [
+    # Custom apps
+    'apps.account.apps.AccountConfig',
+
+    # 3rd party apps
+    'compressor',
+
+    # django base apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +68,7 @@ ROOT_URLCONF = 'stellar_hr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,8 +130,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Compressor settings
+COMPRESS_ROOT = BASE_DIR / 'staticfiles'
+COMPRESS_ENABLED = True
+COMPRESS_PARSER = 'compressor.parser.HtmlParser'
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+COMPRESS_OUTPUT_DIR = 'CACHE'
+
+# Deploy SCSS in Django project
+# We can push our scss files to Git repo and they would be compiled in the deployment stage.
+
+# django_compressor provides a Django command for us to convert scss files to css files.
+
+# First, please add code below to your settings/production.py
+
+# COMPRESS_OFFLINE = True
+# LIBSASS_OUTPUT_STYLE = 'compressed'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+AUTH_USER_MODEL = 'account.User'
+
+LOGIN_REDIRECT_URL = '/'

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load compress %}
+{% block content %}
+{% if 'Employee' in group_names %}
+    {% include 'employee-dashboard.html' %}
+{% else %}{% comment %} HR or Admin {% endcomment %}
+    {% include 'admin-dashboard.html' %}
+{% endif %}
+{% endblock %}
