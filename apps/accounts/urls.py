@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import LoginView, RegisterView, custom_logout
 
-app_name = 'apps.account'
+app_name = 'apps.accounts'
 
 urlpatterns = [
     path('login', LoginView.as_view(), name="login"),

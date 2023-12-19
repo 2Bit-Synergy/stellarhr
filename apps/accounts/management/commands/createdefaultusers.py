@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group
 
-from apps.account.models import User
+from apps.accounts.models import User
 
 class Command(BaseCommand):
     help = 'Seed the database with default initial data users'

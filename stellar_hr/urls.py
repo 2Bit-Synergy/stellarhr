@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # HRIS Account app
-    path('', include('apps.account.urls')),
+    path('', include('apps.accounts.urls')),
 
     # Home or Main View
     path('', MainView.as_view(), name="main"),

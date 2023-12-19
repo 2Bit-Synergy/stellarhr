@@ -39,7 +39,7 @@ STATICFILES_FINDERS = [
 
 INSTALLED_APPS = [
     # Custom apps
-    'apps.account.apps.AccountConfig',
+    'apps.accounts.apps.AccountConfig',
 
     # 3rd party apps
     'compressor',
@@ -76,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.accounts.context_processors.user_role'
             ],
         },
     },
@@ -157,6 +158,6 @@ COMPRESS_OUTPUT_DIR = 'CACHE'
 # LIBSASS_OUTPUT_STYLE = 'compressed'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_REDIRECT_URL = '/'

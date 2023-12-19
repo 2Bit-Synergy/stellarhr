@@ -7,7 +7,7 @@
         <div class="container">
           <!-- Account Logo -->
           <div class="account-logo">
-            <a href="admin-dashboard.html"><img src="{% static 'images/logo2.png' %}" alt="2Bit Synergys" /></a>
+            <a href="admin-dashboard.html"><img src="{% static 'images/logo2.png' %}" alt="Stellar HR" /></a>
           </div>
           <!-- /Account Logo -->
 
@@ -17,7 +17,7 @@
               <p class="account-subtitle">Access to our dashboard</p>
 
               <!-- Account Form -->
-              <form method="POST" action="{% url 'apps.account:register' %}">
+              <form method="POST" action="{% url 'apps.accounts:register' %}">
                 {% csrf_token %}
                 <div class="input-block mb-4">
                   <label class="col-form-label">Email<span class="mandatory">*</span></label>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="account-footer">
                   <p>
-                    Already have an account? <a href="{% url 'apps.account:login' %}">Login</a>
+                    Already have an account? <a href="{% url 'apps.accounts:login' %}">Login</a>
                   </p>
                 </div>
               </form>
