@@ -8,7 +8,7 @@ from .forms import LoginForm
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy('apps.account:login')
+    success_url = reverse_lazy('apps.accounts:login')
     template_name = 'register.html'
 
 class LoginView(DjangoLoginView):

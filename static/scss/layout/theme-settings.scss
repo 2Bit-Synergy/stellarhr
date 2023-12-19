@@ -160,7 +160,7 @@
 }
 [data-sidebar="dark"]  {
     &[data-layout-position="scrollable"] .slimscroll {
-        background-color: #34444c;
+        background-color: #044069;
     }
     
 }
@@ -738,7 +738,7 @@
         }
         &.mini-sidebar {
             .sidebar {
-                background-color: #34444c;
+                background-color: #044069;
             }
         }
         .header{
@@ -1239,7 +1239,7 @@
             position: absolute;
             left: 30px;
             .slimscroll {
-                background: #34444c;
+                background: #044069;
                 border-radius: 10px;
             }
         }
@@ -1553,7 +1553,7 @@
    
     .sidebar {
         box-shadow: rgba(0, 0 , 0, 0.2);
-        background-color: #34444c;
+        background-color: #044069;
         .sidebar-menu{
             .greedy ul li a:hover {
                 color: #fff;
@@ -1574,7 +1574,7 @@
                 color: #fff;
                 &.active{
                     background: #fff;
-                    color: #34444c;
+                    color: #044069;
                 }
             }
         }
@@ -1647,7 +1647,7 @@
                 }
             }
             .sidebar-left .nav-link {
-                color: #34444c;
+                color: #044069;
                 background:#fff;
                 &.active{
                     color: #333333;
@@ -1683,7 +1683,7 @@
             background: #fafafa;
             .nav-link{
                 &.active {
-                    background: #34444c;
+                    background: #044069;
                     color: #fff;
                 }
             }
@@ -1763,7 +1763,7 @@
     body{
         .header{
             background: $__primarycolor;
-            background: linear-gradient(to right, $__primarycolor 0%, #fc6075 100%);
+            background: linear-gradient(to right, $__primarycolor 0%, #01aede 100%);
               .header-left .logo {
                   display: block;
                   line-height: 60px;
@@ -1840,12 +1840,12 @@
                     & > li {
                         &.flag-nav {
                             .dropdown-menu {
-                                background-color: #34444c;
+                                background-color: #044069;
                                 .dropdown-item {
                                     color: #bbc4cc;
                                     &:hover {
                                         background: #bbc4cc;
-                                        color: #34444c;
+                                        color: #044069;
                                     }
                                 }
                             }
@@ -1857,7 +1857,7 @@
                 .notification-title {
                     color: #bbc4cc;
                 }
-                background-color: #34444c;
+                background-color: #044069;
                 .topnav-dropdown-header {
                     border-bottom-color:#bdbdbd ;
                 }
@@ -1887,29 +1887,29 @@
                     color: #bbc4cc;
                     &:hover {
                         background: #bbc4cc;
-                        color: #34444c;
+                        color: #044069;
                     }
                 }
             }
         }
         table.table {
             th {
-                background-color: #34444c;
+                background-color: #044069;
             }
             td {
-                background-color: #34444c;
+                background-color: #044069;
             }
 
         } 
         .custom-modal {
             .modal-content {
-                background-color: #34444c;
+                background-color: #044069;
             }
         }
         .select2-container--default {
             .select2-results {
                 & > .select2-results__options {
-                    background-color: #34444c;
+                    background-color: #044069;
                 }
                 .select2-results__option--highlighted[aria-selected] {
                     background-color: #bbc4cc;
@@ -1929,7 +1929,7 @@
                         color: #bbc4cc !important;
                         &:hover {
                             background: #bbc4cc;
-                            color: #34444c !important;
+                            color: #044069 !important;
                         }
                     }
                 }
@@ -1940,14 +1940,14 @@
         }
         .profile-view {
             .profile-img {
-                background-color: #34444c;
+                background-color: #044069;
             }
             .profile-img-wrap {
                 border-radius: 50%;
             }
         }
         .bootstrap-datetimepicker-widget {
-            background-color: #34444c;
+            background-color: #044069;
             color: #bbc4cc
         }
         .custom-modal {

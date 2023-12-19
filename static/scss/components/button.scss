@@ -1,6 +1,6 @@
 .apply-btn {
     background: #00c5fb;
-    background: linear-gradient(to right, #ff9b44 0%, #fc6075 100%);
+    background: linear-gradient(to right, #96bc32 0%, #01aede 100%);
     border-color: transparent;
     box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
     color: #fff;
@@ -12,7 +12,7 @@
     border-color: #cccccc;
 }
 .form-control:focus {
-    border-color: #ff9b44;
+    border-color: #96bc32;
     box-shadow: $__none;
 }
 .btn:first-child:active, :not(.btn-check)+.btn:active {
@@ -38,10 +38,10 @@
     color: $__white;
 }
 .btn.btn-assign:hover,.btn.btn-assign:active {
-    border-color: #ff9b44;
+    border-color: #96bc32;
 }
 .btn.btn-assign:active {
-    background-color: #ff9b44;
+    background-color: #96bc32;
 }
 [data-layout-mode="orange"] .top-nav-search .form-control::-moz-placeholder {
     color: $__cloud__gray !important;
@@ -147,8 +147,8 @@ table {
     cursor: pointer;
 }
 .custom_check input:checked ~ .checkmark {
-    background-color: #ff9b44;
-    border-color: #ff9b44;
+    background-color: #96bc32;
+    border-color: #96bc32;
 }
 .custom_check .checkmark {
     position: absolute;

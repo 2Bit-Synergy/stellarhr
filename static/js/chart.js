@@ -17,9 +17,9 @@ $(document).ready(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['Total Income', 'Total Outcome'],
-		lineColors: ['#ff9b44','#fc6075'],
+		lineColors: ['#96bc32','#01aede'],
 		lineWidth: '3px',
-		barColors: ['#ff9b44','#fc6075'],
+		barColors: ['#96bc32','#01aede'],
 		resize: true,
 		
 		redraw: true
@@ -42,7 +42,7 @@ $(document).ready(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['Total Sales', 'Total Revenue'],
-		lineColors: ['#ff9b44','#fc6075'],
+		lineColors: ['#96bc32','#01aede'],
 		lineWidth: '3px',
 		resize: true,
 		
