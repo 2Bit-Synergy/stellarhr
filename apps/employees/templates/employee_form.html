@@ -1,0 +1,18 @@
+<h1>
+  {% if employee %}
+    Edit
+  {% else %}
+    Create
+  {% endif %}Employee
+</h1>
+<form method="post"
+  action="{% if employee %}
+    {% url 'apps.employees:employee_update' employee.pk %}
+  {% else %}
+    {% url 'apps.employees:employee_create' %}
+  {% endif %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'apps.employees:employee_list' %}">Back to Employee List</a>

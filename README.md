@@ -22,6 +22,57 @@ StellarHR is a comprehensive Human Resources Information System (HRIS) designed 
 
 - **Payroll Integration:** Integrate with payroll systems to automate salary calculations, deductions, and disbursements.
 
+## Tech Used:
+- python3
+- django5
+- postgres sql (either installed on your machine or use docker container)
+- docker(if using docker)
+
+## Setting up PostgreSQL on Windows and Linux
+   **Windows:**
+   **Install PostgreSQL on Windows:**
+   Download the PostgreSQL installer for Windows from the official website.
+   Run the installer and follow the installation instructions.
+   During installation, set a password for the default postgres user.
+
+   **Start PostgreSQL:**
+   After installation, PostgreSQL should start automatically as a Windows service.
+   You can check the service status in the Windows Services panel.
+
+   **Access PostgreSQL:**
+   You can use a graphical tool like pgAdmin or the command-line tool psql to interact with PostgreSQL.
+   **Linux:**
+   **Install PostgreSQL on Linux:**
+   Use your distribution's package manager to install PostgreSQL. For example, on Ubuntu:
+   ```bash
+      sudo apt-get update
+      sudo apt-get install postgresql postgresql-contrib
+   ```
+   > During installation, set a password for the default postgres user.
+
+   **Start PostgreSQL:**
+   - On most Linux distributions, PostgreSQL starts automatically after installation.
+   - You can check the status using:
+   ```bash
+      sudo service postgresql status
+   ```
+
+   **Access PostgreSQL:**
+   - Use the psql command-line tool to interact with PostgreSQL:
+   ```bash
+      psql -U postgres
+   ```
+
+   **Using Docker:**
+   Run PostgreSQL with Docker Compose:
+   ```bash
+      docker-compose up -d
+   ```
+   **Stop and Remove Containers**
+   ```bash
+      docker-compose down
+   ```
+
 ## Installation
 
 1. Clone the repository:
