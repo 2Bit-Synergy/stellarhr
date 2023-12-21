@@ -1,15 +1,15 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from .forms import CreateEmployeeForm
-from .models import Employees
+from .models import Employee
 
 # Create your views here.
 
 
-# class CreateEmployeeView(CreateView):
-#     model = Employees
-#     form_class = CreateEmployeeForm
-#     template_name = 'create-employee.html'
+class CreateEmployeeView(CreateView):
+    model = Employee
+    form_class = CreateEmployeeForm
+    template_name = 'create-employee.html'
     
 # def create_employee(request):
 #     if request.method == "POST":
@@ -30,8 +30,8 @@ from .models import Employees
     
 
 
-def create_employee(request):
-    return render(request, template_name='create-employee.html')
+# def create_employee(request):
+#     return render(request, template_name='create-employee.html')
 
 
 def update_employee(request):

@@ -1,9 +1,9 @@
 from django import forms
-from .models import Employees
+from .models import Department, Company, Position, Employee, EmploymentHistory, ContactInformation
 
 
 class CreateEmployeeForm(forms.ModelForm):
     class Meta:
-        model = Employees
+        model = Employee
         fields = '__all__'
         
