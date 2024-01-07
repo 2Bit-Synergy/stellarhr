@@ -8,8 +8,10 @@ from . import views
 app_name = 'apps.employees'
 
 urlpatterns = [
-    path('create-employee', views.CreateEmployeeView.as_view(   ), name="create_employee"),
-    path('update-employee', views.update_employee, name="update_employee"),
+    path('register-employee', views.register_employee, name="register_employee"),
+    path('manage-employee-data', views.manage_employee_data, name="manage_employee_data"),
+    path('employee-data/<int:id>', views.employee_data, name="employee_data"),
     path('delete-employee', views.delete_employee, name="delete_employee"),
     path('employee-list', views.employee_list, name="employee_list"),
+    
 ]

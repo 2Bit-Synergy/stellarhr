@@ -1,5 +1,5 @@
 from django.db import models
-
+from apps.accounts import models as AccountModels
 # Create your models here.
 
 #Admin models
@@ -7,22 +7,31 @@ class Department(models.Model):
     department_name = models.CharField(max_length=50, blank=True, null=True)
     department_code = models.CharField(max_length=50, blank=True, null=True)
     
+    def __str__(self):
+        return f"{self.department_name} Department"
+    
 class Position(models.Model):
     position_name = models.CharField(max_length=50, blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.position_name}"
     
 class Company(models.Model):
     company_name = models.CharField(max_length=50, blank=True, null=True)
     company_address = models.CharField(max_length=50, blank=True, null=True)
     
     
- #User Models   
+#USER MODELS
 class Employee(models.Model):
-    user_id = models.IntegerField(blank=True, null=True)
+    user_id = models.OneToOneField(AccountModels.User, on_delete=models.CASCADE)
     employee_id = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, blank=True, null=True)
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, blank=True, null=True)
     manager_id = models.IntegerField(blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.user_id.first_name} {self.user_id.last_name}'s Employee Profile"
     
 
 class EmploymentHistory(models.Model):
