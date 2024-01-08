@@ -41,6 +41,9 @@ STATICFILES_FINDERS = [
 INSTALLED_APPS = [
     # Custom apps
     'apps.accounts.apps.AccountConfig',
+    'apps.employees.apps.EmployeesConfig',
+    
+    
 
     # 3rd party apps
     'compressor',

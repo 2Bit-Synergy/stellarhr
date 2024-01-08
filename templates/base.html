@@ -34,8 +34,10 @@
 		{% block css %}{% endblock %}
     </head>
     <body>
+		
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
+
 			{% if form.errors %}
 				<div class="alert alert-danger">
 				<strong>Error:</strong> {{ form.errors }}
@@ -43,9 +45,16 @@
 			{% endif %}
 			{% include 'layouts/header.html' %}
 			{% include 'layouts/sidebar.html' %}
+			{% block RegisterEmployee %}{% endblock %}
 			{% block content %}{% endblock %}
+			
+			
+
+
         </div>
 		<!-- /Main Wrapper -->
+
+		
 		
 		<!-- jQuery -->
        <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
