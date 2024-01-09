@@ -1,2 +1,23 @@
-Employee Details
-{{ employee.first_name }} {{ employee.last_name }} <br>
+
+<h2>Basic Information</h2>
+{{ user.first_name }} {{ user.last_name }} <br>
+{{ user.email }}
+
+<h2>Employee Details </h2>
+ID: {{ user.employee.employee_id }}<br>
+Date of birth: {{ user.employee.date_of_birth }} <br>
+Department: {{ user.employee.department }} <br>
+Position: {{ user.employee.position }} <br>
+Manager: {{ user.employee.manager_id }} <br>
+
+<h2>Employment History</h2>
+Start Date: {{ user.employee.employmenthistory.start_date }}<br> 
+End Date: {{ user.employee.employmenthistory.end_date }}<br>
+Company: {{ user.employee.employmenthistory.company }}<br>
+
+<h2>Contact Information</h2>
+Address: {{user.employee.contactinformation.address }}<br>
+Phone Number: {{ user.employee.contactinformation.phone_number }}<br>
+Emergency Contact: {{user.employee.contactinformation.emergency_contact_name }}<br>
+Emergency Contact No: {{user.employee.contactinformation.emergency_contact_number }}<br>
+

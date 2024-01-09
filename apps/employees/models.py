@@ -2,7 +2,7 @@ from django.db import models
 from apps.accounts import models as AccountModels
 # Create your models here.
 
-#Admin models
+#ADMIN MODELS
 class Department(models.Model):
     department_name = models.CharField(max_length=50, blank=True, null=True)
     department_code = models.CharField(max_length=50, blank=True, null=True)
@@ -41,10 +41,17 @@ class EmploymentHistory(models.Model):
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, blank=True, null=True)
     
     
+    def __str__(self):
+        return f"{self.employee_id.user_id.first_name} {self.employee_id.user_id.last_name}'s Employment History"
+    
+    
 class ContactInformation(models.Model):
     employee_id = models.OneToOneField(Employee, on_delete=models.CASCADE, blank=True, null=True)
     address = models.CharField(max_length=50, blank=True, null=True)
     phone_number = models.CharField(max_length=50, blank=True, null=True)
     emergency_contact_name = models.CharField(max_length=50, blank=True, null=True)
     emergency_contact_number = models.CharField(max_length=50, blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.employee_id.user_id.first_name} {self.employee_id.user_id.last_name}'s Contact Information"
     

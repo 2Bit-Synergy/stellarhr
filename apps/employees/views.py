@@ -14,6 +14,8 @@ from apps.accounts.models import User
 
 # Create your views here.
 
+
+
 def register_employee(request):
     if request.method == "POST":
         register_form = RegisterEmployeeForm(request.POST)
@@ -22,7 +24,7 @@ def register_employee(request):
             details_form = EmployeeDetailsUpdateForm(request.POST, instance=employee_instance)
             if details_form.is_valid():
                 details_form.save()
-                return redirect('apps.employees:employee_list')
+                return redirect('apps.employees:employee_data', id=employee_instance.id)
             else:
                 print("Opps details_form is not valid ")
                 
@@ -30,38 +32,59 @@ def register_employee(request):
             print("Opps register_form is not valid ")       
     else:
         register_form = RegisterEmployeeForm()
-        details_form = EmployeeDetailsUpdateForm()
         
     context = {
         'register_form': register_form,
-        'details_form': details_form
     }
     
     return render(request, 'register-employee.html', context)
 
 
-
-
-
-
 def manage_employee_data(request, id):
     user = User.objects.get(id=id)
     if request.method == "POST":
-        form1 = UserDetailsUpdateForm(request.POST, instance=user.id)
-        form2 = EmployeeDetailsUpdateForm(request.POST, instance=request.user.id)
-        if form1.is_valid() and form2.is_valid():
-            form1.save()
-            form2.save()
+        user_form = UserDetailsUpdateForm(request.POST, instance=user.id)
+        employee_data_form = EmployeeDetailsUpdateForm(request.POST, instance=user.employee.id)
+        employee_emp_history_form = EmploymentHistoryForm(request.POST, instance=user.employee.employmenthistory.id)
+        employee_contact_info_form = ContactInformationForm(request.POST, instance=user.employee.contactinformation.id)
+        
+        if user_form.is_valid() and employee_data_form.is_valid() and employee_emp_history_form.is_valid and employee_contact_info_form.is_valid():
+            user_form.save()
+            employee_data_form.save()
+            employee_emp_history_form.save()
+            employee_contact_info_form.save()
             return redirect('apps.employees:manage_employee_data')
     
     else:
-        form1 = UserDetailsUpdateForm(instance=request.user)
-        employee_instance = get_object_or_404(Employee, user_id=request.user)
-        form2 = EmployeeDetailsUpdateForm(instance=request.user.employee_instance)
+        user_form = UserDetailsUpdateForm(instance=user.id)
+        employee_data_form = EmployeeDetailsUpdateForm(instance=user.employee.id)
+        employee_emp_history_form = EmploymentHistoryForm(instance=user.employee.employmenthistory.id)
+        employee_contact_info_form = ContactInformationForm(instance=user.employee.contactinformation.id)
     
     return render(request, 'manage-employee-data.html')
 
-# CONTINUE HERE!!!
+
+
+def delete_employee(request):
+    return render(request, template_name='delete-employee.html')
+
+def employee_list(request):
+    users = User.objects.all()
+    
+    context = {
+        'users': users
+    }
+    return render(request, 'employee-list.html', context)
+
+
+def employee_data(request, id):
+    user = User.objects.get(id=id)
+    
+    context = {
+        'user': user
+    }
+    return render(request, 'employee-data.html', context)
+
 
 
 # def RegisterEmployeeView(request):
@@ -112,22 +135,27 @@ def manage_employee_data(request, id):
 
 
 
-def delete_employee(request):
-    return render(request, template_name='delete-employee.html')
-
-def employee_list(request):
-    users = User.objects.all()
+# def register_employee(request):
+#     if request.method == "POST":
+#         register_form = RegisterEmployeeForm(request.POST)
+#         if register_form.is_valid():
+#             employee_instance = register_form.save()
+#             details_form = EmployeeDetailsUpdateForm(request.POST, instance=employee_instance)
+#             if details_form.is_valid():
+#                 details_form.save()
+#                 return redirect('apps.employees:employee_data', id=employee_instance.id)
+#             else:
+#                 print("Opps details_form is not valid ")
+                
+#         else:
+#             print("Opps register_form is not valid ")       
+#     else:
+#         register_form = RegisterEmployeeForm()
+#         details_form = EmployeeDetailsUpdateForm()
+        
+#     context = {
+#         'register_form': register_form,
+#         'details_form': details_form
+#     }
     
-    context = {
-        'users': users
-    }
-    return render(request, 'employee-list.html', context)
-
-
-def employee_data(request, id):
-    employee = User.objects.get(id=id)
-    
-    context = {
-        'employee': employee
-    }
-    return render(request, 'employee-data.html', context)
+#     return render(request, 'register-employee.html', context)
