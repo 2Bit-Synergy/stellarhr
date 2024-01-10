@@ -6,8 +6,9 @@ from apps.accounts import models as AccountModels
 from apps.accounts import forms as AccountForms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
 from apps.accounts.models import User
+from django.contrib import messages
+
 
 
 
@@ -24,9 +25,11 @@ def register_employee(request):
             details_form = EmployeeDetailsUpdateForm(request.POST, instance=employee_instance)
             if details_form.is_valid():
                 details_form.save()
+                messages.success(request, 'Employee added successfully.', extra_tags='success')
                 return redirect('apps.employees:employee_data', id=employee_instance.id)
             else:
                 print("Opps details_form is not valid ")
+                print(details_form.errors)
                 
         else:
             print("Opps register_form is not valid ")       
@@ -35,6 +38,7 @@ def register_employee(request):
         
     context = {
         'register_form': register_form,
+
     }
     
     return render(request, 'register-employee.html', context)
@@ -43,30 +47,49 @@ def register_employee(request):
 def manage_employee_data(request, id):
     user = User.objects.get(id=id)
     if request.method == "POST":
-        user_form = UserDetailsUpdateForm(request.POST, instance=user.id)
-        employee_data_form = EmployeeDetailsUpdateForm(request.POST, instance=user.employee.id)
-        employee_emp_history_form = EmploymentHistoryForm(request.POST, instance=user.employee.employmenthistory.id)
-        employee_contact_info_form = ContactInformationForm(request.POST, instance=user.employee.contactinformation.id)
+        user_form = UserDetailsUpdateForm(request.POST, instance=user)
+        employee_data_form = EmployeeDetailsUpdateForm(request.POST, instance=user.employee)
+        employee_emp_history_form = EmploymentHistoryForm(request.POST, instance=user.employee.employmenthistory)
+        employee_contact_info_form = ContactInformationForm(request.POST, instance=user.employee.contactinformation)
         
         if user_form.is_valid() and employee_data_form.is_valid() and employee_emp_history_form.is_valid and employee_contact_info_form.is_valid():
             user_form.save()
             employee_data_form.save()
             employee_emp_history_form.save()
             employee_contact_info_form.save()
-            return redirect('apps.employees:manage_employee_data')
+            messages.success(request, 'Employee updated successfully.', extra_tags='info')
+            return redirect('apps.employees:employee_data', id=user.id)
     
     else:
-        user_form = UserDetailsUpdateForm(instance=user.id)
-        employee_data_form = EmployeeDetailsUpdateForm(instance=user.employee.id)
-        employee_emp_history_form = EmploymentHistoryForm(instance=user.employee.employmenthistory.id)
-        employee_contact_info_form = ContactInformationForm(instance=user.employee.contactinformation.id)
+        user_form = UserDetailsUpdateForm(instance=user)
+        employee_data_form = EmployeeDetailsUpdateForm(instance=user.employee)
+        employee_emp_history_form = EmploymentHistoryForm(instance=user.employee.employmenthistory)
+        employee_contact_info_form = ContactInformationForm(instance=user.employee.contactinformation)
+        
+    context = {
+        'user_form':user_form,
+        'employee_data_form':employee_data_form,
+        'employee_emp_history_form': employee_emp_history_form,
+        'employee_contact_info_form':employee_contact_info_form
+        
+    }
     
-    return render(request, 'manage-employee-data.html')
+    return render(request, 'manage-employee-data.html', context)
 
 
 
-def delete_employee(request):
-    return render(request, template_name='delete-employee.html')
+def delete_employee(request, id):
+    user = User.objects.get(id=id)
+    if request.method == "POST":
+        user.delete()
+        messages.success(request, 'Employee deleted.', extra_tags='warning')
+        return redirect('apps.employees:employee_list')
+        
+    context = {
+        'user':user,
+    }
+    
+    return render(request, 'delete-employee.html', context)
 
 def employee_list(request):
     users = User.objects.all()

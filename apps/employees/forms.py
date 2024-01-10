@@ -18,7 +18,7 @@ class UserDetailsUpdateForm(forms.ModelForm):
 class EmployeeDetailsUpdateForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ('employee_id', 'date_of_birth', 'department', 'position', 'manager_id')
+        fields = ('employee_id_no', 'date_of_birth', 'department', 'position', 'manager_id')
         
 class CreateEmployeeForm(forms.ModelForm):
     class Meta:

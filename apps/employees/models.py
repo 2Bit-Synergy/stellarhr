@@ -24,7 +24,7 @@ class Company(models.Model):
 #USER MODELS
 class Employee(models.Model):
     user_id = models.OneToOneField(AccountModels.User, on_delete=models.CASCADE)
-    employee_id = models.IntegerField(blank=True, null=True)
+    employee_id_no = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, blank=True, null=True)
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, blank=True, null=True)
