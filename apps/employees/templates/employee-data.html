@@ -1,9 +1,9 @@
-
 <h2>Basic Information</h2>
 {{ user.first_name }} {{ user.last_name }} <br>
 {{ user.email }}
 
 <h2>Employee Details </h2>
+Profile Picture:<img src="{{ user.employee.profile_picture.url }}"><br>
 ID: {{ user.employee.employee_id_no }}<br>
 Date of birth: {{ user.employee.date_of_birth }} <br>
 Department: {{ user.employee.department }} <br>

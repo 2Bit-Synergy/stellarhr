@@ -7,7 +7,7 @@
       <div class="account-content">
         <form method="POST">
             {% csrf_token %}
-            <div class="input-block mb-4">
+            {% comment %} <div class="input-block mb-4">
                 <label class="col-form-label">Username:</label>
                 <input name="username" class="form-control" type="text"/>
             </div>
@@ -26,12 +26,15 @@
                 <label class="col-form-label">Password:</label>
                 <input name="username" class="form-control" type="text"/>
             </div>
+            {% endcomment %}
 
-            <div class="input-block mb-4 text-center">
-                <button class="btn btn-primary account-btn" type="submit">Register User</button>
-              </div>
+            
 
               {{ register_form.as_p }}
+
+              <div class="input-block mb-4 text-center">
+                <button class="btn btn-primary account-btn" type="submit">Register User</button>
+            </div> 
     
         </form>
 

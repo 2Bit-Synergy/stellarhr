@@ -171,3 +171,6 @@ COMPRESS_OUTPUT_DIR = 'CACHE'
 AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_REDIRECT_URL = '/'
+
+MEDIA_URL = '/staticfiles/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles')

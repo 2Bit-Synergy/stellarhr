@@ -23,6 +23,7 @@ class Company(models.Model):
     
 #USER MODELS
 class Employee(models.Model):
+    profile_picture = models.ImageField(upload_to='profile', default='stellarhr-default-image.jpg')
     user_id = models.OneToOneField(AccountModels.User, on_delete=models.CASCADE)
     employee_id_no = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
