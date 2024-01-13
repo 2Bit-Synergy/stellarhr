@@ -1,1 +1,6 @@
-Delete Employee
+
+<form method="POST">
+    {% csrf_token %}
+    <h2>Confirm User Deletion: {{ user.first_name }} {{ user.last_name }}</h2>
+    <button type="submit">Confirm</button>
+</form>
