@@ -172,5 +172,5 @@ AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_REDIRECT_URL = '/'
 
-MEDIA_URL = '/staticfiles/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/images/profile_pic/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/images/profile_pic')
