@@ -69,7 +69,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="pro-edit"><a data-bs-target="#profile_info" data-bs-toggle="modal" class="edit-icon" href="#"><i class="fa-solid fa-pencil"></i></a></div>
+
+                            <!--Edit header info button-->
+                            <div class="pro-edit"><a data-bs-target="#update_employee_data" data-bs-toggle="modal" class="edit-icon" href=""><i class="fa-solid fa-pencil"></i></a></div>
                         </div>
                     </div>
                 </div>
@@ -91,13 +93,14 @@
         
         <div class="tab-content">
         
-            <!-- Profile Info Tab -->
+            <!-- Personal Information Tab -->
             <div id="emp_profile" class="pro-overview tab-pane fade show active">
                 <div class="row">
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
-                                <h3 class="card-title"> PERSONAL INFORMATION<a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#personal_info_modal"><i class="fa-solid fa-pencil"></i></a></h3>
+                                {% comment %} <h3 class="card-title"> PERSONAL INFORMATION<a href="personalinformation-edit-button" class="edit-icon" data-bs-toggle="modal" data-bs-target="#personal_info_modal"><i class="fa-solid fa-pencil"></i></a></h3> {% endcomment %}
+                                <h3 class="card-title"> PERSONAL INFORMATION</h3>
                                 <ul class="personal-info">
                                     <li>
                                         <div class="title">Passport No.</div>
@@ -131,7 +134,8 @@
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
-                                <h3 class="card-title"> CONTACT INFORMATION<a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#emergency_contact_modal"><i class="fa-solid fa-pencil"></i></a></h3>
+                                {% comment %} <h3 class="card-title"> CONTACT INFORMATION<a href="contactinformation-edit-button" class="edit-icon" data-bs-toggle="modal" data-bs-target="#emergency_contact_modal"><i class="fa-solid fa-pencil"></i></a></h3> {% endcomment %}
+                                <h3 class="card-title"> CONTACT INFORMATION</h3>
                                 <h5 class="section-title">EMPLOYEE CONTACT INFORMATION</h5>
                                 <ul class="personal-info">
                                     <li>
@@ -164,7 +168,8 @@
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
-                                <h3 class="card-title">BANK INFORMATION</h3>
+                                {% comment %} <h3 class="card-title"> BANK INFORMATION<a href="bankinformation-edit-button" class="edit-icon" data-bs-toggle="modal" data-bs-target="#emergency_contact_modal"><i class="fa-solid fa-pencil"></i></a></h3> {% endcomment %}
+                                <h3 class="card-title"> BANK INFORMATION</h3>
                                 <ul class="personal-info">
                                     <li>
                                         <div class="title">Bank name</div>
@@ -189,7 +194,8 @@
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
-                                <h3 class="card-title"> EMPLOYMENT HISTORY <a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#family_info_modal"><i class="fa-solid fa-pencil"></i></a></h3>
+                                {% comment %} <h3 class="card-title"> EMPLOYMENT HISTORY <a href="employmenthistory-edit-button" class="edit-icon" data-bs-toggle="modal" data-bs-target="#family_info_modal"><i class="fa-solid fa-pencil"></i></a></h3> {% endcomment %}
+                                <h3 class="card-title"> EMPLOYMENT HISTORY </h3>
                                 <div class="table-responsive">
                                     <table class="table table-nowrap">
                                         <thead>
@@ -222,11 +228,12 @@
                         </div>
                     </div>
                 </div>
-                {% comment %} <div class="row">
+                <div class="row">
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
-                                <h3 class="card-title">Education Informations <a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#education_info"><i class="fa-solid fa-pencil"></i></a></h3>
+                                {% comment %} <h3 class="card-title">Education Informations <a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#education_info"><i class="fa-solid fa-pencil"></i></a></h3> {% endcomment %}
+                                <h3 class="card-title">NEGATIVE EVENTS TIMELINE</h3>
                                 <div class="experience-box">
                                     <ul class="experience-list">
                                         <li>
@@ -261,7 +268,8 @@
                     <div class="col-md-6 d-flex">
                         <div class="card profile-box flex-fill">
                             <div class="card-body">
-                                <h3 class="card-title">Experience <a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#experience_info"><i class="fa-solid fa-pencil"></i></a></h3>
+                                {% comment %} <h3 class="card-title">Experience <a href="#" class="edit-icon" data-bs-toggle="modal" data-bs-target="#experience_info"><i class="fa-solid fa-pencil"></i></a></h3> {% endcomment %}
+                                <h3 class="card-title">POSITIVE CONSTRIBUTIONS</h3>
                                 <div class="experience-box">
                                     <ul class="experience-list">
                                         <li>
@@ -302,12 +310,12 @@
                             </div>
                         </div>
                     </div>
-                </div> {% endcomment %}
+                </div>
             </div>
-            <!-- /Profile Info Tab -->
+            <!-- /Personal Information Tab  -->
             
             <!-- Projects Tab -->
-            <div class="tab-pane fade" id="emp_projects">
+            {% comment %} <div class="tab-pane fade" id="emp_projects">
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
                         <div class="card">
@@ -561,11 +569,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <!-- /Projects Tab -->
             
             <!-- Bank Statutory Tab -->
-            <div class="tab-pane fade" id="bank_statutory">
+            {% comment %} <div class="tab-pane fade" id="bank_statutory">
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title"> Basic Salary Information</h3>
@@ -771,11 +779,11 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <!-- /Bank Statutory Tab -->
             
             <!-- Assets -->
-            <div class="tab-pane fade" id="emp_assets">
+            {% comment %} <div class="tab-pane fade" id="emp_assets">
                 <div class="table-responsive table-newdatatable">
                     <table class="table table-new custom-table mb-0 datatable">
                         <thead>
@@ -954,19 +962,19 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <!-- /Assets -->
             
         </div>
     </div>
     <!-- /Page Content -->
     
-    <!-- Profile Modal -->
-    <div id="profile_info" class="modal custom-modal fade" role="dialog">
+    <!-- Update Employee Modal -->
+    <div id="update_employee_data" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Profile Information</h5>
+                    <h5 class="modal-title">Update Employee Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -985,19 +993,43 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
+                                            <label class="col-form-label">Username</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Password</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
                                             <label class="col-form-label">First Name</label>
-                                            <input type="text" class="form-control" value="John">
+                                            <input type="text" class="form-control" value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Last Name</label>
-                                            <input type="text" class="form-control" value="Doe">
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Email</label>
+                                            <input type="text" class="form-control" value="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
-                                            <label class="col-form-label">Birth Date</label>
+                                            <label class="col-form-label">Employee ID. No.</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Date of Birth</label>
                                             <div class="cal-icon">
                                                 <input class="form-control datetimepicker" type="text" value="05/06/1985">
                                             </div>
@@ -1005,17 +1037,96 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
+                                            <label class="col-form-label">Department <span class="text-danger">*</span></label>
+                                            <select class="select">
+                                                <option>Select Department</option>
+                                                <option>Web Development</option>
+                                                <option>IT Management</option>
+                                                <option>Marketing</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Designation <span class="text-danger">*</span></label>
+                                            <select class="select">
+                                                <option>Select Designation</option>
+                                                <option>Web Designer</option>
+                                                <option>Web Developer</option>
+                                                <option>Android Developer</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Reporting Manager</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Start Date</label>
+                                            <div class="cal-icon">
+                                                <input class="form-control datetimepicker" type="text" value="05/06/1985">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">End Date</label>
+                                            <div class="cal-icon">
+                                                <input class="form-control datetimepicker" type="text" value="05/06/1985">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Company <span class="text-danger">*</span></label>
+                                            <select class="select">
+                                                <option>Dash Engineering Phil. Inc.</option>
+                                                <option>Toyota Cagayan de Oro Group</option>
+                                                <option>SMC Repairs & Maintenance Inc.</option>
+                                                <option>Technology Builders Management Inc.</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Address</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Phone No.</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Emergency Contact Name</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-block mb-3">
+                                            <label class="col-form-label">Emergency Contact Number</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    {% comment %} <div class="col-md-6">
+                                        <div class="input-block mb-3">
                                             <label class="col-form-label">Gender</label>
                                             <select class="select form-control">
                                                 <option value="male selected">Male</option>
                                                 <option value="female">Female</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        {% comment %} <div class="row">
                             <div class="col-md-12">
                                 <div class="input-block mb-3">
                                     <label class="col-form-label">Address</label>
@@ -1046,28 +1157,7 @@
                                     <input type="text" class="form-control" value="631-889-3206">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="input-block mb-3">
-                                    <label class="col-form-label">Department <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Select Department</option>
-                                        <option>Web Development</option>
-                                        <option>IT Management</option>
-                                        <option>Marketing</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-block mb-3">
-                                    <label class="col-form-label">Designation <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Select Designation</option>
-                                        <option>Web Designer</option>
-                                        <option>Web Developer</option>
-                                        <option>Android Developer</option>
-                                    </select>
-                                </div>
-                            </div>
+                            
                             <div class="col-md-6">
                                 <div class="input-block mb-3">
                                     <label class="col-form-label">Reports To <span class="text-danger">*</span></label>
@@ -1079,7 +1169,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                         <div class="submit-section">
                             <button class="btn btn-primary submit-btn">Submit</button>
                         </div>
@@ -1088,10 +1178,10 @@
             </div>
         </div>
     </div>
-    <!-- /Profile Modal -->
+    <!-- /Update Employee Modal-->
     
     <!-- Personal Info Modal -->
-    <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
+    {% comment %} <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1167,11 +1257,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     <!-- /Personal Info Modal -->
     
     <!-- Family Info Modal -->
-    <div id="family_info_modal" class="modal custom-modal fade" role="dialog">
+    {% comment %} <div id="family_info_modal" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1257,11 +1347,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     <!-- /Family Info Modal -->
     
     <!-- Emergency Contact Modal -->
-    <div id="emergency_contact_modal" class="modal custom-modal fade" role="dialog">
+    {% comment %} <div id="emergency_contact_modal" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1274,7 +1364,7 @@
                     <form>
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Primary Contact</h3>
+                                <h3 class="card-title">Personal Information</h3>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
@@ -1342,11 +1432,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     <!-- /Emergency Contact Modal -->
     
     <!-- Education Modal -->
-    <div id="education_info" class="modal custom-modal fade" role="dialog">
+    {% comment %} <div id="education_info" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1464,11 +1554,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     <!-- /Education Modal -->
     
     <!-- Experience Modal -->
-    <div id="experience_info" class="modal custom-modal fade" role="dialog">
+    {% comment %} <div id="experience_info" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1574,7 +1664,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     <!-- /Experience Modal -->
 
 </div>

@@ -1,3 +1,7 @@
 from django.contrib import admin
+from apps.hrperformance.models import AttendanceRecord, TimeLogType
 
-# Register your models here.
+
+
+admin.site.register(TimeLogType)
+admin.site.register(AttendanceRecord)

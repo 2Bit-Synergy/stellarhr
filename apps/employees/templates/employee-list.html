@@ -107,11 +107,6 @@
                     </table>
                 </div>
 
-                <div>
-                    {% for user in users %}
-                    {{ user.first_name }} {{ user.last_name }} | <a href="{% url 'apps.employees:employee_data' user.id %}">Details</a> |  <a href="{% url 'apps.employees:manage_employee_data' user.id %}">Update</a> |  <a href="{% url 'apps.employees:delete_employee' user.id %}">Delete</a><br>
-                    {% endfor %}
-                </div>
                 
             </div>
         </div>

@@ -28,6 +28,7 @@ urlpatterns = [
     # HRIS Account app
     path('', include('apps.accounts.urls')),
     path('', include('apps.employees.urls')),
+    path('', include('apps.hrperformance.urls')),
 
 
     # Home or Main View
