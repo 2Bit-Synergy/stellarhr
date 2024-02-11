@@ -8,6 +8,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from apps.accounts.models import User
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.generic import TemplateView, View, DeleteView
+
+
 
 
 
@@ -44,6 +48,9 @@ def register_employee(request):
     return render(request, 'register-employee.html', context)
 
 
+
+
+
 def manage_employee_data(request, id):
     user = User.objects.get(id=id)
     if request.method == "POST":
@@ -78,18 +85,33 @@ def manage_employee_data(request, id):
 
 
 
-def delete_employee(request, id):
-    user = User.objects.get(id=id)
-    if request.method == "POST":
-        user.delete()
-        messages.success(request, 'Employee deleted.', extra_tags='warning')
-        return redirect('apps.employees:employee_list')
+# def delete_employee(request, id):
+#     user = User.objects.get(id=id)
+#     if request.method == "POST":
+#         user.delete()
+#         messages.success(request, 'Employee deleted.', extra_tags='warning')
+#         return redirect('apps.employees:employee_list')
         
-    context = {
-        'user':user,
-    }
+#     context = {
+#         'user':user,
+#     }
     
-    return render(request, 'delete-employee.html', context)
+#     return render(request, 'delete-employee.html', context)
+
+
+
+
+class DeleteEmployee(View):
+    def get(self, request):
+        id = request.GET.get('id', None)
+        User.objects.get(id=id).delete()
+        
+        data = {
+            'deleted':True
+        }
+        
+        return JsonResponse(data)
+
 
 def employee_list(request):
     users = User.objects.all()

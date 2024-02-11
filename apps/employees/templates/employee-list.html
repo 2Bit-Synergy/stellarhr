@@ -77,9 +77,10 @@
                                 <th class="text-end no-sort">Action</th>
                             </tr>
                         </thead>
+                        <tbody id="employeeTable">
                         {% for user in users %}
-                        <tbody>
-                            <tr>
+                        
+                            <tr id="user-{{user.id}}">
                                 <td>
                                         <h2 class="table-avatar">
                                             <a href="{% url 'apps.employees:employee_data' user.id %}" class="avatar"><img src="{{ user.employee.profile_picture.url }}" alt="User Image"></a>
@@ -96,7 +97,9 @@
                                         <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item" href="{% url 'apps.employees:manage_employee_data' user.id %}" data-bs-toggle="modal" data-bs-target="#edit_employee"><i class="fa-solid fa-pencil m-r-5"></i> Edit</a> <!--NOT YET WORKING-->
-                                            <a class="dropdown-item" href="{% url 'apps.employees:delete_employee' user.id %}" data-bs-toggle="modal" data-bs-target="#delete_employee"><i class="fa-regular fa-trash-can m-r-5"></i> Delete</a> <!--NOT YET WORKING-->
+                                            {% comment %} <a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#delete_employee"><i class="fa-regular fa-trash-can m-r-5"></i> Delete</a> <!-- FIRST DELETE BUTTON--> {% endcomment %}
+                                            <a class="dropdown-item delete-button" href="javascript:void(0);" data-user-id="{{ user.id }}" data-bs-toggle="modal" data-bs-target="#delete_employee" id="row_delete_employee"><i class="fa-regular fa-trash-can m-r-5"></i> Delete</a>
+
                                         </div>
                                     </div>
                                 </td>
@@ -124,7 +127,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="addEmployeeForm">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="input-block mb-3">
@@ -1002,8 +1005,9 @@
                     <div class="modal-btn delete-action">
                         <div class="row">
                             <div class="col-6">
-                                <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                                <a href="javascript:void(0);" class="btn btn-primary continue-btn" id="deleteButton" >Delete</a>                            
                             </div>
+                        
                             <div class="col-6">
                                 <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
                             </div>
@@ -1014,9 +1018,144 @@
         </div>
     </div>
     <!-- /Delete Employee Modal -->
+
+
+    {% comment %} <!--TOAST-->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="deleteToast" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1500;">
+        <div class="toast-header">
+            <strong class="me-auto">Success!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            User successfully deleted.
+        </div>
+    </div>
     
-</div>
+    <!--/TOAST--> {% endcomment %}
+    
+    </div>
 
 
+<!-- SCRIPT FOR EMPLOYEE CRUD-->
+
+{% endblock %}
+
+
+
+
+
+
+{% block js %}
+
+<script>
+
+
+// Delete Django Ajax Call
+
+// Click row delete button modal from table
+$(document).on("click", "#row_delete_employee", function(e) {
+    // Get the user ID from the clicked row
+    var userId = e.currentTarget.dataset.userId;
+    
+    // Set the user ID attribute on the delete button modal
+    $("#deleteButton").attr("data-user-id", userId);
+});
+
+
+// HANDLES DELETE BUTTON MODAL
+$(document).on("click", "#deleteButton", function(e) {
+    // Get the user ID from the delete button modal
+    var userId = $(this).data("user-id");
+    
+    // Delete Django Ajax Call
+    $.ajax({
+        url: '{% url "apps.employees:delete_employee" %}',
+        method: 'GET', // Use POST method for deletion
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}' // Include the CSRF token in the request headers
+        },
+        data: {
+            'id': userId,
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log("Success Deletion");
+            if (data.deleted) {
+                // Show the toast message
+                $('#deleteToast').toast('show');
+                
+                // Remove the modal backdrop and hide the modal
+                $('.modal-backdrop').remove();
+                $('#delete_employee').modal('hide');
+                
+                // Remove the deleted user's row from the table
+                $("#user-" + userId).remove();
+            } else {
+                console.error("User deletion failed:", data.message); // Log server-side error message
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", error); // Log AJAX request error
+        }
+    });
+});
+
+
+
+
+{% comment %} 
+// Delete Django Ajax Call
+
+// Click row delete button modal from table
+$(document).on("click", "#row_delete_employee", function(e) {
+    // Get the user ID from the clicked row
+    var userId = e.currentTarget.dataset.userId;
+    
+    // Set the user ID attribute on the delete button modal
+    $("#deleteButton").attr("data-user-id", userId);
+});
+
+
+// HANDLES DELETE BUTTON MODAL
+$(document).on("click", "#deleteButton", function(e) {
+    // Get the user ID from the delete button modal
+    var userId = $(this).data("user-id");
+    
+    // Delete Django Ajax Call
+    $.ajax({
+        url: '{% url "apps.employees:delete_employee" %}',
+        method: 'GET', // Use POST method for deletion
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}' // Include the CSRF token in the request headers
+        },
+        data: {
+            'id': userId,
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log("Success Deletion");
+            if (data.deleted) {
+                // Remove the modal backdrop and hide the modal
+                $('.modal-backdrop').remove();
+                $('#delete_employee').modal('hide');
+                
+                // Remove the deleted user's row from the table
+                $("#user-" + userId).remove();
+            } else {
+                console.error("User deletion failed:", data.message); // Log server-side error message
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", error); // Log AJAX request error
+        }
+    });
+}); {% endcomment %}
+
+
+
+    
+
+
+    </script>
 
 {% endblock %}

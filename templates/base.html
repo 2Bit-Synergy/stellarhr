@@ -47,7 +47,21 @@
 			{% include 'layouts/sidebar.html' %}
 			{% block content %}{% endblock %}
 			
-			
+		
+
+
+		   <!--TOAST-->
+			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="deleteToast" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1500;">
+				<div class="toast-header">
+					<strong class="me-auto">INFO.</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					User successfully deleted.
+				</div>
+			</div>
+		
+			<!--/TOAST-->
 
 
         </div>
