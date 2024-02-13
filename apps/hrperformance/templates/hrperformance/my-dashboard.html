@@ -2,6 +2,6 @@ MY Dashboard
 
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button>LOG</button>
+    {% comment %} {{ form.as_p }} {% endcomment %}
+    <button type="submit">LOG</button>
 </form>

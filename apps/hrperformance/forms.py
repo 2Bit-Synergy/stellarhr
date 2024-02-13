@@ -8,4 +8,8 @@ class AttendanceRecordForm(forms.ModelForm):
     
     class Meta:
         model = AttendanceRecord
-        fields = '__all__'
+        fields = ['employee', 'timein', 'timeout']
+        widgets = {
+            'timein': forms.DateTimeInput(attrs={'required': False}),
+            'timeout': forms.DateTimeInput(attrs={'required': False}),
+        }
