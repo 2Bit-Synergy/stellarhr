@@ -19,7 +19,10 @@ class AttendanceRecord(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     timein = models.DateTimeField(null=True)
     timeout = models.DateTimeField(null=True)
-    type = models.ForeignKey(TimeLogType, on_delete=models.CASCADE, max_length=100, blank=True, null=True) 
+    type = models.ForeignKey(TimeLogType, on_delete=models.CASCADE, max_length=100, default=1, blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.employee.user_id.first_name} {self.employee.user_id.last_name}: {self.timein.date()}"
 
 
 
