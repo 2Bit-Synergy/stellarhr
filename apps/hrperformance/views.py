@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from apps.hrperformance.models import AttendanceRecord
+from apps.hrperformance.models import AttendanceRecord, HRSetting
 from apps.hrperformance.forms import AttendanceRecordForm
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import AttendanceRecordForm  
+from .forms import AttendanceRecordForm, HRSettingForm
 from .models import AttendanceRecord 
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -52,3 +52,10 @@ class AttendanceRecordView(LoginRequiredMixin, CreateView):
         
         
         ### LOGIC IS NOW CORRECT, NEXT MOVE IS TO INCLUDE TYPE IN THE CONDITION AND IMPLEMENT PROPER REDIRECT, 
+        
+
+class HRSettingView(FormView):
+    model = HRSetting
+    template_name = "hrperformance/hr-settings.html"
+    form_class = HRSettingForm
+    

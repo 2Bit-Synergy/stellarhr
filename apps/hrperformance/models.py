@@ -21,9 +21,21 @@ class AttendanceRecord(models.Model):
     timeout = models.DateTimeField(null=True)
     type = models.ForeignKey(TimeLogType, on_delete=models.CASCADE, max_length=100, default=1, blank=True, null=True)
     
+    
+    
     def __str__(self):
         return f"{self.employee.user_id.first_name} {self.employee.user_id.last_name}: {self.timein.date()}"
+    
+    
+# COMPANY SETTING TO WORK WITH LATES AND OVERTIME
+class HRSetting(models.Model):
+    timein_setpoint = models.TimeField(null=True)
+    timeout_setpoint = models.TimeField(null=True)
+    # last_updated = models.DateTimeField()
+    # updated_by = models.ForeignKey(User)
+    # 
 
+    
 
 
 

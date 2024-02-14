@@ -1,5 +1,5 @@
 from django import forms
-from apps.hrperformance.models import AttendanceRecord, TimeLogType
+from apps.hrperformance.models import AttendanceRecord, TimeLogType, HRSetting
 
 
 
@@ -13,3 +13,9 @@ class AttendanceRecordForm(forms.ModelForm):
             'timein': forms.DateTimeInput(attrs={'required': False}),
             'timeout': forms.DateTimeInput(attrs={'required': False}),
         }
+        
+        
+class HRSettingForm(forms.ModelForm):
+    class Meta:
+        model = HRSetting
+        fields = '__all__'
