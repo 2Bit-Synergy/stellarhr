@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # Custom apps
     'apps.accounts.apps.AccountConfig',
     'apps.employees.apps.EmployeesConfig',
+    'apps.hrperformance.apps.HrperformanceConfig',
     
     
 
