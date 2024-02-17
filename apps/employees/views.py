@@ -139,11 +139,75 @@ class DeleteEmployee(View):
 
 def employee_list(request):
     users = User.objects.all()
+
     
     context = {
         'users': users
     }
     return render(request, 'employee-list.html', context)
+
+
+
+
+        
+        
+
+class EmployeeData(View):
+    def get(self, request, id):
+        try:
+            employee = User.objects.get(id=id)
+            
+            username = employee.username
+            password = employee.password
+            first_name = employee.first_name
+            last_name = employee.last_name
+            email = employee.email
+            id_no = employee.employee.employee_id_no
+            date_of_birth = employee.employee.date_of_birth
+            department = employee.employee.department
+            position = employee.employee.position
+            manager = employee.employee.manager_id
+            start_date = employee.employee.employmenthistory.start_date
+            end_date = employee.employee.employmenthistory.end_date
+            company = employee.employee.employmenthistory.company
+            address = employee.employee.contactinformation.address
+            phone_number = employee.employee.contactinformation.phone_number
+            emergency_contact = employee.employee.contactinformation.emergency_contact_name
+            emergency_no = employee.employee.contactinformation.emergency_contact_number
+
+            
+            
+            
+            
+            data = {
+                'username':username,
+                'first_name':first_name,
+                'last_name':last_name,
+                'email':email,
+                'password':password,              
+                'id_no':id_no,
+                'date_of_birth':date_of_birth,
+                'department': department,
+                'position': position,
+                'manager': manager,
+                'start_date': start_date,
+                'end_date': end_date,
+                'company': company,
+                'address': address,
+                'phone_number': phone_number,
+                'emergency_contact': emergency_contact,
+                'emergency_no':emergency_no
+            }
+
+            
+            return JsonResponse(data)
+        
+        except Employee.DoesNotExist:
+            return JsonResponse({'error': 'Employee not found'}, status=404)
+            
+            
+
+
 
 
 def employee_data(request, id):
@@ -153,6 +217,9 @@ def employee_data(request, id):
         'user': user
     }
     return render(request, 'employee-data.html', context)
+
+
+
 
 
 
