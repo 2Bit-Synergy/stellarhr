@@ -486,7 +486,47 @@ function getEmployeeData(id) {
     console.log("getEmployeeData Activated");
     if (id) {
         $.ajax({
-            url: "/employee-data-update/" + id + "/", // URL to employee data endpoint
+            url: "/api/employee-details/" + id + "/", // URL to employee data endpoint
+            method: 'GET',
+            data: {'id': id}, // Send the ID as data
+            success: function(response) {
+                console.log("Success AJAX CALL");
+                console.log("Response:", response); // Log the entire response object
+                
+                var userData = response;
+                var employeeData = response.employee;
+                
+                console.log("User Data:", userData); // Log user data
+                console.log("Employee Data:", employeeData); // Log employee data
+
+                // Populate form fields with user data
+                $('#form-id').val(userData.id);
+                $('#form-username').val(userData.username);
+                $('#form-first-name').val(userData.first_name);
+                $('#form-last-name').val(userData.last_name);
+                $('#form-email').val(userData.email);
+
+                // Populate form fields with employee data
+                $('#form-id-no').val(employeeData.employee_id_no);
+                $('#form-date-of-birth').val(employeeData.date_of_birth);
+                $('#form-department').val(employeeData.department.department_name);
+                $('#form-position').val(employeeData.position.position_name);
+                $('#form-manager').val(employeeData.manager_id);
+            },
+            error: function(xhr, status, error) {
+                console.log("AJAX CALL FAILED");
+                console.log("Error:", error); // Log the error message
+            }
+        });
+    }
+}
+
+
+{% comment %} function getEmployeeData(id) {
+    console.log("getEmployeeData Activated");
+    if (id) {
+        $.ajax({
+            url: "/api/employee-details/" + id + "/", // URL to employee data endpoint
             method: 'GET',
             data: {'id': id}, // Send the ID as data
             success: function(response) {
@@ -537,7 +577,7 @@ function getEmployeeData(id) {
         });
         
     }
-}
+} {% endcomment %}
 
 // IMPLEMENT DJANGO REST FRAMEWORK IN HANDLING THE ISSUE OF DEPARTMENT AND POSITION FOR SERIALIZATION
 

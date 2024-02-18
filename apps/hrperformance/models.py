@@ -31,8 +31,35 @@ class AttendanceRecord(models.Model):
 class HRSetting(models.Model):
     timein_setpoint = models.TimeField(null=True)
     timeout_setpoint = models.TimeField(null=True)
+    break_time_start = models.TimeField(null=True)
+    break_time_end = models.TimeField(null=True)
+    awol_setpoint = models.TimeField(null=True)
+    late_offense_verbalwarning = models.IntegerField(null=True)
+    late_offense_writtenwarning = models.IntegerField(null=True)
+    late_offense_suspension = models.IntegerField(null=True)
+    awol_offense_verbalwarning = models.IntegerField(null=True)
+    awol_offense_writtenwarning = models.IntegerField(null=True)
+    awol_offense_suspension = models.IntegerField(null=True)
     # last_updated = models.DateTimeField()
     # updated_by = models.ForeignKey(User)
 
 
 
+class Offense(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
+    type = models.CharField(null=True)
+    date = models.DateTimeField(null=True)
+    description = models.CharField(null=True)
+    status = models.CharField(null=True)
+
+
+class Recognition(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
+    title = models.CharField(null=True)
+    description = models.TextField(null=True)
+    
+
+# THIS MODEL IS FOR OPERATIONAL KPI ACHIEVEMENT
+# class Achievement(models.Model)
+    
+    

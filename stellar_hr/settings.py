@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'apps.accounts.apps.AccountConfig',
     'apps.employees.apps.EmployeesConfig',
     'apps.hrperformance.apps.HrperformanceConfig',
+    'apps.api.apps.ApiConfig',
+    'rest_framework',
     
     
 
