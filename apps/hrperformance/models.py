@@ -33,9 +33,6 @@ class HRSetting(models.Model):
     timeout_setpoint = models.TimeField(null=True)
     # last_updated = models.DateTimeField()
     # updated_by = models.ForeignKey(User)
-    # 
-
-    
 
 
 
