@@ -29,7 +29,7 @@ urlpatterns = [
     path('', include('apps.accounts.urls')),
     path('', include('apps.employees.urls')),
     path('', include('apps.hrperformance.urls')),
-
+    path('', include('apps.api.urls')),
 
     # Home or Main View
     path('', MainView.as_view(), name="main"),

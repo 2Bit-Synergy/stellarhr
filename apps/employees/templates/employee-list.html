@@ -76,10 +76,11 @@
                         <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#update_employee_data" onClick="editEmployee({{ user.id }})" data-user=""><i class="fa-solid fa-pencil m-r-5"></i> Edit</a>
+                            <a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#update_employee_data" onClick="getEmployeeData({{ user.id }})" data-user=""><i class="fa-solid fa-pencil m-r-5"></i> Get ED</a>
                             <a class="dropdown-item delete-button" href="javascript:void(0);" data-user-id="{{ user.id }}" data-bs-toggle="modal" data-bs-target="#delete_employee" id="row_delete_employee"><i class="fa-regular fa-trash-can m-r-5"></i> Delete</a>
                         </div>
                     </div>
-                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="{% url 'apps.employees:employee_data' user.id %}">{{ user.first_name }} {{ user.last_name }} </a></h4>
+                    <h4 class="first-name m-t-10 mb-0 text-ellipsis"><a href="{% url 'apps.employees:employee_data' user.id %}">{{ user.first_name }}</a></h4>
                     <div class="small text-muted">{{ user.employee.position|default:"-" }}</div>
                 </div>
             </div>
@@ -169,13 +170,14 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Employee Data</h5>
+                    <h5 class="modal-title">Edit Employee Modal</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form method="POST" id="updateEmployee">
+                        <input type="hidden" id="form-id" name="employee_id"> <!-- HIDDEN ID VALUE-->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="profile-img-wrap edit-img">
@@ -189,25 +191,25 @@
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Username</label>
-                                            <input type="text" class="form-control" value="" name="username">
+                                            <input type="text" class="form-control" id="form-username" value="" name="username">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Password</label>
-                                            <input type="text" class="form-control" value="" name="password">
+                                            <input type="text" class="form-control" id="form-password" name="password">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">First Name</label>
-                                            <input type="text" class="form-control" value="" name="first_name">
+                                            <input type="text" class="form-control" id="form-first-name" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Last Name</label>
-                                            <input type="text" class="form-control" value="" name="last_name">
+                                            <input type="text" class="form-control" id="form-last-name" value="" name="last_name">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -219,50 +221,40 @@
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Employee ID. No.</label>
-                                            <input type="text" class="form-control" value="" name="">
+                                            <input type="text" class="form-control" id="form-id-no" value="" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Date of Birth</label>
                                             <div class="cal-icon">
-                                                <input class="form-control datetimepicker" type="text" value="" name="">
+                                                <input class="form-control datetimepicker" id="form-date-of-birth" type="text" value="" name="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Department <span class="text-danger">*</span></label>
-                                            <select class="select" name="">
-                                                <option>Select Department</option>
-                                                <option>Web Development</option>
-                                                <option>IT Management</option>
-                                                <option>Marketing</option>
-                                            </select>
+                                            <input type="text" class="form-control" id="form-department" value="" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
-                                            <label class="col-form-label">Designation <span class="text-danger">*</span></label>
-                                            <select class="select" name="">
-                                                <option>Select Designation</option>
-                                                <option>Web Designer</option>
-                                                <option>Web Developer</option>
-                                                <option>Android Developer</option>
-                                            </select>
+                                            <label class="col-form-label">Position <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="form-position" value="" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Reporting Manager</label>
-                                            <input type="text" class="form-control" value="" name="">
+                                            <input type="text" class="form-control" id="form-manager" value="" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Start Date</label>
                                             <div class="cal-icon">
-                                                <input class="form-control datetimepicker" type="text" value="" name="">
+                                                <input class="form-control datetimepicker" id="form-start-date" type="text" value="" name="">
                                             </div>
                                         </div>
                                     </div>
@@ -270,43 +262,38 @@
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">End Date</label>
                                             <div class="cal-icon">
-                                                <input class="form-control datetimepicker" type="text" value="" name="">
+                                                <input class="form-control datetimepicker" id="form-end-date" type="text" value="" name="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Company <span class="text-danger">*</span></label>
-                                            <select class="select" name="">
-                                                <option>Dash Engineering Phil. Inc.</option>
-                                                <option>Toyota Cagayan de Oro Group</option>
-                                                <option>SMC Repairs & Maintenance Inc.</option>
-                                                <option>Technology Builders Management Inc.</option>
-                                            </select>
+                                            <input type="text" class="form-control" id="form-company" value="" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Address</label>
-                                            <input type="text" class="form-control" value="" name="">
+                                            <input type="text" class="form-control" id="form-address" value="" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Phone No.</label>
-                                            <input type="text" class="form-control" value="" name="">
+                                            <input type="text" class="form-control" id="form-phone-number" value="" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Emergency Contact Name</label>
-                                            <input type="text" class="form-control" value="" name="">
+                                            <input type="text" class="form-control" id="form-emergency-contact" value="" name="">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-block mb-3">
                                             <label class="col-form-label">Emergency Contact Number</label>
-                                            <input type="text" class="form-control" value="" name="">
+                                            <input type="text" class="form-control" id="form-emergency-no" value="" name="">
                                         </div>
                                     </div>
                                 </div>
@@ -472,126 +459,130 @@ $("form#updateEmployee").submit(function() {
 });
 
 
-function editEmployee(userId) {
-    // Make an AJAX request to fetch user data
-    $.ajax({
-        url: 'apps.employees:manage_employee_data', // Replace this URL with your endpoint to fetch user data
-        type: 'GET',
-        data: { user_id: userId },
-        success: function(data) {
-            // Update modal fields with user data
-            $('#update_employee_data input[name="username"]').val(data.username);
-            $('#update_employee_data input[name="password"]').val(data.password);
-            $('#update_employee_data input[name="first_name"]').val(data.first_name);
-            $('#update_employee_data input[name="last_name"]').val(data.last_name);
-            $('#update_employee_data input[name="email"]').val(data.email);
-            // Update other fields similarly...
-        },
-        error: function(xhr, status, error) {
-            // Handle error
-            console.error(error);
-        }
-    });
+
+
+// EDIT/UPDATE EMPLOYEE
+
+
+
+
+  {% comment %} function editEmployee(id) {
+    console.log("editEmployee Activated");
+    if (id) {
+        var div_id = "user-" + id;
+        console.log(div_id);
+        var first_name = $("#" + div_id).find(".first-name a").text(); // Updated selector
+        console.log(first_name);
+        $("#form-id").val(id);
+        $("#form-first-name").val(first_name);
+    }
+}
+
+     {% endcomment %}
+
+
+// JavaScript function to fetch employee data via AJAX
+function getEmployeeData(id) {
+    console.log("getEmployeeData Activated");
+    if (id) {
+        $.ajax({
+            url: "/api/employee-details/" + id + "/", // URL to employee data endpoint
+            method: 'GET',
+            data: {'id': id}, // Send the ID as data
+            success: function(response) {
+                console.log("Success AJAX CALL");
+                console.log("Response:", response); // Log the entire response object
+                
+                var userData = response;
+                var employeeData = response.employee;
+                
+                console.log("User Data:", userData); // Log user data
+                console.log("Employee Data:", employeeData); // Log employee data
+
+                // Populate form fields with user data
+                $('#form-id').val(userData.id);
+                $('#form-username').val(userData.username);
+                $('#form-first-name').val(userData.first_name);
+                $('#form-last-name').val(userData.last_name);
+                $('#form-email').val(userData.email);
+
+                // Populate form fields with employee data
+                $('#form-id-no').val(employeeData.employee_id_no);
+                $('#form-date-of-birth').val(employeeData.date_of_birth);
+                $('#form-department').val(employeeData.department.department_name);
+                $('#form-position').val(employeeData.position.position_name);
+                $('#form-manager').val(employeeData.manager_id);
+            },
+            error: function(xhr, status, error) {
+                console.log("AJAX CALL FAILED");
+                console.log("Error:", error); // Log the error message
+            }
+        });
+    }
 }
 
 
-{% comment %} // EDIT EMPLOYEE
-function editEmployee(id) {
+{% comment %} function getEmployeeData(id) {
+    console.log("getEmployeeData Activated");
     if (id) {
-        div_id = "#user-" + id;
-        username = $(div_id).find(".username").text();
-        password = $(div_id).find(".password").text();
-        first_name = $(div_id).find(".first_name").text();
-        last_name = $(div_id).find(".last_name").text();
-        email = $(div_id).find(".email").text();
-        $('#username').val(username);
-        $('#password').val(password);
-        $('#first_name').val(first_name);
-        $('#last_name').val(last_name);
-        $('#email').val(email);
+        $.ajax({
+            url: "/api/employee-details/" + id + "/", // URL to employee data endpoint
+            method: 'GET',
+            data: {'id': id}, // Send the ID as data
+            success: function(response) {
+                console.log(response); // For example, log the response data
+                console.log("Success AJAX CALL");
+                var userName = response.username;
+                var firstName = response.first_name;
+                var lastName = response.last_name;
+                var email = response.email;
+                var idNo = response.id_no;
+                var dateOfbirth = response.date_of_birth;
+                var department = response.department;
+                var position = response.position;
+                var manager = response.manager;
+                var startDate = response.start_date;
+                var endDate = response.end_date;
+                var company = response.company;
+                var address = response.address;
+                var phoneNumber = response.phone_number;
+                var emergencyContact = response.emergency_contact;
+                var emergencyNo = response.emergency_no;
+             
 
-    }
-  }
-   {% endcomment %}
+                $('#form-id').val(id);
+                $('#form-username').val(userName);
+                $('#form-first-name').val(firstName);
+                $('#form-last-name').val(lastName);
+                $('#form-email').val(email);
+                $('#form-password').val(password);
+                $('#form-id-no').val(idNo);
+                $('#form-date-of-birth').val(dateOfbirth);
+                $('#form-department').val(department);
+                $('#form-position').val(position);
+                $('#form-manager').val(manager);
+                $('#form-start-date').val(startDate);
+                $('#form-end-date').val(endDate);
+                $('#form-company').val(company);
+                $('#form-address').val(address);
+                $('#form-phone-number').val(phoneNumber);
+                $('#form-emergency-contact').val(emergencyContact);
+                $('#form-emergency-no').val(emergencyNo);
+            },
+            error: function(response) {
+                console.log(response);
+                console.log("AJAX CALL FAILED");
 
-{% comment %} 
-// Delete Django Ajax Call
-
-// Click row delete button modal from table
-$(document).on("click", "#row_delete_employee", function(e) {
-    // Get the user ID from the clicked row
-    var userId = e.currentTarget.dataset.userId;
-    
-    // Set the user ID attribute on the delete button modal
-    $("#deleteButton").attr("data-user-id", userId);
-});
-
-
-// HANDLES DELETE BUTTON MODAL
-$(document).on("click", "#deleteButton", function(e) {
-    // Get the user ID from the delete button modal
-    var userId = $(this).data("user-id");
-    
-    // Delete Django Ajax Call
-    $.ajax({
-        url: '{% url "apps.employees:delete_employee" %}',
-        method: 'GET', // Use POST method for deletion
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}' // Include the CSRF token in the request headers
-        },
-        data: {
-            'id': userId,
-        },
-        dataType: 'json',
-        success: function (data) {
-            console.log("Success Deletion");
-            if (data.deleted) {
-                // Remove the modal backdrop and hide the modal
-                $('.modal-backdrop').remove();
-                $('#delete_employee').modal('hide');
-                
-                // Remove the deleted user's row from the table
-                $("#user-" + userId).remove();
-            } else {
-                console.error("User deletion failed:", data.message); // Log server-side error message
             }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", error); // Log AJAX request error
-        }
-    });
-}); {% endcomment %}
+        });
+        
+    }
+} {% endcomment %}
 
+// IMPLEMENT DJANGO REST FRAMEWORK IN HANDLING THE ISSUE OF DEPARTMENT AND POSITION FOR SERIALIZATION
 
-
-    
 
 
     </script>
 
 {% endblock %}
-
-
-
-{% comment %} $.ajax({
-    url: '{% url "apps.employees:register_employee" %}',
-    data: {
-        'username': userName,
-        'first_name': firstName,
-        'last_name': lastName,
-        'email': email,
-        'password': password,
-    },
-    dataType: 'json',
-    success: function (data) {
-        if (data.user) {
-          appendToUsrTable(data.user);
-        }
-    }
-});
-
-} else {
-alert("All fields must have a valid value.");
-}
-$('form#add_employee').trigger("reset");
-return false; {% endcomment %}

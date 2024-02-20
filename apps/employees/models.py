@@ -20,6 +20,9 @@ class Company(models.Model):
     company_name = models.CharField(max_length=50, blank=True, null=True)
     company_address = models.CharField(max_length=50, blank=True, null=True)
     
+    def __str__(self):
+        return f"{self.company_name}"
+    
     
 #USER MODELS
 class Employee(models.Model):
