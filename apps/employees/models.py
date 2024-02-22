@@ -27,12 +27,12 @@ class Company(models.Model):
 #USER MODELS
 class Employee(models.Model):
     profile_picture = models.ImageField(upload_to='profile', default='stellarhr-default-image.jpg')
-    user_id = models.OneToOneField(AccountModels.User, on_delete=models.CASCADE)
+    user_id = models.OneToOneField(AccountModels.User, on_delete=models.CASCADE, related_name='employee')
     employee_id_no = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, blank=True, null=True)
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, blank=True, null=True)
-    manager_id = models.IntegerField(blank=True, null=True)
+    manager_id = models.ForeignKey(AccountModels.User, on_delete=models.SET_NULL, blank=True, null=True, related_name='managed_employees')
     
     def __str__(self):
         return f"{self.user_id.first_name} {self.user_id.last_name}'s Employee Profile"
@@ -59,3 +59,6 @@ class ContactInformation(models.Model):
     def __str__(self):
         return f"{self.employee_id.user_id.first_name} {self.employee_id.user_id.last_name}'s Contact Information"
     
+
+
+

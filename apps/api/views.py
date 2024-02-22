@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view
-from .serializers import EmployeeSerializer, UserSerializer
-from apps.employees.models import Employee
+from .serializers import EmployeeSerializer, UserSerializer, EmploymentHistorySerializer, ContactInformationSerializer
+from apps.employees.models import Employee, EmploymentHistory, ContactInformation
 from apps.accounts.models import User
 from rest_framework.views import APIView
 
@@ -19,12 +19,26 @@ def employee_list(request):
 @api_view(['GET'])
 def employee_detail(request, id):
     try:
-        user = User.objects.select_related('employee').get(id=id)  # Use select_related to fetch related employee in one query
+        user = User.objects.select_related('employee').get(id=id) # Use select_related to fetch related employee in one query
+        employee_id = user.employee.id
+        employment_history = EmploymentHistory.objects.get(id=employee_id)
+        print(employment_history.id) 
+        contact_information = ContactInformation.objects.get(id=employee_id)
+        print(contact_information.id)
+        
     except User.DoesNotExist:
         return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = UserSerializer(user)
-    return Response(serializer.data)
+    user_serializer = UserSerializer(user)
+    employment_history_serializer = EmploymentHistorySerializer(employment_history)
+    contact_information_serializer = ContactInformationSerializer(contact_information)
+    response_data = {
+        "user": user_serializer.data,
+        "employment_history": employment_history_serializer.data,
+        "contact_information": contact_information_serializer.data
+    }
+    
+    return Response(response_data)
 
 # @api_view(['GET'])
 # def employee_detail(request, id):
