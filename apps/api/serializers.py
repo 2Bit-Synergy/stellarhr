@@ -37,7 +37,7 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
         
-# START HERE: WRONG EMPLOYEE START DATE EMPLEMENTATION
+
 class EmployeeSerializer(serializers.ModelSerializer):
     position = PositionSerializer()
     department = DepartmentSerializer()
@@ -47,8 +47,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 
-
-
 class UserSerializer(serializers.ModelSerializer):
     employee = EmployeeSerializer()
     
@@ -57,6 +55,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
         
+
 
 
 

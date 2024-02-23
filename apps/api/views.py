@@ -21,10 +21,8 @@ def employee_detail(request, id):
     try:
         user = User.objects.select_related('employee').get(id=id) # Use select_related to fetch related employee in one query
         employee_id = user.employee.id
-        employment_history = EmploymentHistory.objects.get(id=employee_id)
-        print(employment_history.id) 
-        contact_information = ContactInformation.objects.get(id=employee_id)
-        print(contact_information.id)
+        employment_history = EmploymentHistory.objects.get(employee_id=employee_id) 
+        contact_information = ContactInformation.objects.get(employee_id=employee_id)
         
     except User.DoesNotExist:
         return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -40,22 +38,12 @@ def employee_detail(request, id):
     
     return Response(response_data)
 
-# @api_view(['GET'])
-# def employee_detail(request, id):
-#     employee = User.objects.get(id=id)
-#     serializer = UserSerializer(employee)
-    
-#     data = serializer.data
-    
-#     return Response(data)
 
 
-# class EmployeeDetailView(APIView):
-#     def get(self, request, id):
-#         try:
-#             employee = User.objects.get(id=id)
-#         except User.DoesNotExist:
-#             return Response(status=status.HTTP_404_NOT_FOUND)
-        
-#         serializer = UserSerializer(employee)
-#         return Response(serializer.data)
+def update_employee_details(request, id):
+    pass
+
+
+
+def delete_employee(request, id):
+    pass
