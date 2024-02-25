@@ -48,7 +48,7 @@ class HRSetting(models.Model):
 class Offense(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
     type = models.CharField(null=True)
-    date = models.DateTimeField(null=True)
+    date = models.DateTimeField(blank=True, null=True)
     description = models.CharField(null=True)
     status = models.CharField(null=True)
 
