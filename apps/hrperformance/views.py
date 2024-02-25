@@ -112,6 +112,7 @@ class OffenseCreateView(CreateView):
     
     
     
+    
 class OffenseUpdateView(UpdateView):
     model = Offense
     template_name = 'hrperformance/update-offense.html'
