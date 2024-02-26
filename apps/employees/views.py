@@ -156,7 +156,6 @@ class EmployeeData(View):
     def get(self, request, id):
         try:
             employee = User.objects.get(id=id)
-            
             username = employee.username
             password = employee.password
             first_name = employee.first_name
@@ -219,79 +218,3 @@ def employee_data(request, id):
     return render(request, 'employee-data.html', context)
 
 
-
-
-
-
-# def RegisterEmployeeView(request):
-#     if request.method == "POST":
-#         user_form =  AccountForms.UserForm(request.POST)
-#         create_employee_form = CreateEmployeeForm(request.POST)
-#         employment_history_form = EmploymentHistoryForm(request.POST)
-#         contact_info_form = ContactInformationForm(request.POST)
-#         if user_form.is_valid() and create_employee_form.is_valid() and employment_history_form.is_valid() and contact_info_form.is_valid():
-#             user = user_form.save()
-#             employee = create_employee_form.save(commit=False)
-#             history = employment_history_form.save(commit=False)
-#             contact = contact_info_form.save(commit=False)
-            
-#             employee.user_id = user
-#             history.employee_id = employee
-#             contact.employee_id = employee
-            
-#             employee.save()
-#             history.save()
-#             contact.save()
-            
-#             return redirect('manage_employee_data')
-        
-#         else:
-#             print(user_form.errors)
-#             print(create_employee_form.errors)
-#             print(employment_history_form.errors)
-#             print(contact_info_form.errors)
-    
-#     else:
-#         user_form =  AccountForms.UserForm()
-#         create_employee_form = CreateEmployeeForm()
-#         employment_history_form = EmploymentHistoryForm()
-#         contact_info_form = ContactInformationForm()
-            
-#     context = {
-#         'user_form':user_form,
-#         'create_employee_form':create_employee_form,
-#         'employment_history_form':employment_history_form,
-#         'contact_info_form':contact_info_form,
-        
-#     }
-    
-#     return render(request, 'register-employee.html', context=context)
-
-
-
-
-
-# def register_employee(request):
-#     if request.method == "POST":
-#         register_form = RegisterEmployeeForm(request.POST)
-#         if register_form.is_valid():
-#             employee_instance = register_form.save()
-#             details_form = EmployeeDetailsUpdateForm(request.POST, instance=employee_instance)
-#             if details_form.is_valid():
-#                 details_form.save()
-#                 return redirect('apps.employees:employee_data', id=employee_instance.id)
-#             else:
-#                 print("Opps details_form is not valid ")
-                
-#         else:
-#             print("Opps register_form is not valid ")       
-#     else:
-#         register_form = RegisterEmployeeForm()
-#         details_form = EmployeeDetailsUpdateForm()
-        
-#     context = {
-#         'register_form': register_form,
-#         'details_form': details_form
-#     }
-    
-#     return render(request, 'register-employee.html', context)

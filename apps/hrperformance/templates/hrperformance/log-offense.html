@@ -1,0 +1,7 @@
+<h1>LOG OFFENSE</h1><br>
+
+<form method="POST">
+ {% csrf_token %}
+ {{ form.as_p }}
+ <button type="submit">Create Offense</button>
+</form>

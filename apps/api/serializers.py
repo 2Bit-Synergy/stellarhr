@@ -9,17 +9,20 @@ class ContactInformationSerializer(serializers.ModelSerializer):
         model = ContactInformation
         fields = '__all__'
 
-
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = '__all__'
+        
 class EmploymentHistorySerializer(serializers.ModelSerializer):
+    company = CompanySerializer()
+        
     class Meta:
         model = EmploymentHistory
         fields = '__all__'
 
 
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = '__all__'
+
 
 
 class PositionSerializer(serializers.ModelSerializer):
@@ -34,17 +37,15 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
         
+
 class EmployeeSerializer(serializers.ModelSerializer):
     position = PositionSerializer()
     department = DepartmentSerializer()
-    # contact_information = ContactInformationSerializer()
-    # employment_history = EmploymentHistorySerializer()
-    
+
     class Meta:
         model = Employee
         fields = '__all__'
-
-
+        
 
 class UserSerializer(serializers.ModelSerializer):
     employee = EmployeeSerializer()

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view
-from .serializers import EmployeeSerializer, UserSerializer
-from apps.employees.models import Employee
+from .serializers import EmployeeSerializer, UserSerializer, EmploymentHistorySerializer, ContactInformationSerializer
+from apps.employees.models import Employee, EmploymentHistory, ContactInformation
 from apps.accounts.models import User
 from rest_framework.views import APIView
 
@@ -19,29 +19,31 @@ def employee_list(request):
 @api_view(['GET'])
 def employee_detail(request, id):
     try:
-        user = User.objects.select_related('employee').get(id=id)  # Use select_related to fetch related employee in one query
+        user = User.objects.select_related('employee').get(id=id) # Use select_related to fetch related employee in one query
+        employee_id = user.employee.id
+        employment_history = EmploymentHistory.objects.get(employee_id=employee_id) 
+        contact_information = ContactInformation.objects.get(employee_id=employee_id)
+        
     except User.DoesNotExist:
         return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    serializer = UserSerializer(user)
-    return Response(serializer.data)
-
-# @api_view(['GET'])
-# def employee_detail(request, id):
-#     employee = User.objects.get(id=id)
-#     serializer = UserSerializer(employee)
+    user_serializer = UserSerializer(user)
+    employment_history_serializer = EmploymentHistorySerializer(employment_history)
+    contact_information_serializer = ContactInformationSerializer(contact_information)
+    response_data = {
+        "user": user_serializer.data,
+        "employment_history": employment_history_serializer.data,
+        "contact_information": contact_information_serializer.data
+    }
     
-#     data = serializer.data
-    
-#     return Response(data)
+    return Response(response_data)
 
 
-# class EmployeeDetailView(APIView):
-#     def get(self, request, id):
-#         try:
-#             employee = User.objects.get(id=id)
-#         except User.DoesNotExist:
-#             return Response(status=status.HTTP_404_NOT_FOUND)
-        
-#         serializer = UserSerializer(employee)
-#         return Response(serializer.data)
+
+def update_employee_details(request, id):
+    pass
+
+
+
+def delete_employee(request, id):
+    pass
