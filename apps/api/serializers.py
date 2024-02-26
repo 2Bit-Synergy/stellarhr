@@ -59,4 +59,3 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 
-

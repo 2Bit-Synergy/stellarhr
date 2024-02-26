@@ -26,8 +26,8 @@ class OffenseForm(forms.ModelForm):
         model = Offense
         fields = '__all__'
         
-        
 class RecognitionForm(forms.ModelForm):
     class Meta:
         model = Recognition
         fields = '__all__'
+        

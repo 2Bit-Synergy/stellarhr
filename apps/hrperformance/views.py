@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from apps.accounts.models import User
 from apps.hrperformance.models import AttendanceRecord, HRSetting
 from apps.hrperformance.forms import AttendanceRecordForm
 from django.views.generic.edit import CreateView, UpdateView
@@ -8,6 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.detail import SingleObjectMixin
 from .forms import AttendanceRecordForm, HRSettingForm, OffenseForm, RecognitionForm
 from .models import AttendanceRecord, Offense
 from django.shortcuts import get_object_or_404
@@ -103,17 +105,23 @@ class OffenseCreateView(CreateView):
     form_class = OffenseForm
     success_url = reverse_lazy('offense_create')
     
-    def get_object():
-        employee_with_offense = User.objects.get(id=id)
-        print(employee_with_offense)
-        return employee_with_offense
+
+    
+    def get_initial(self):
+        initial = super().get_initial()
+        print(initial)
+        # Get the user object based on the ID passed in the URL
+        user_id = self.kwargs.get('id')
+        user = get_object_or_404(User, id=user_id)
+        employee = user.employee
+        # Set the 'employee' field in the initial data
+        initial['employee'] = employee
+        return initial
+    
+## CONTINUE HERE! FEB 27
     
     
-    
-    
-    
-    
-class OffenseUpdateView(UpdateView):
+class OffenseUpdateView(UpdateView, SingleObjectMixin):
     model = Offense
     template_name = 'hrperformance/update-offense.html'
     form_class = OffenseForm
