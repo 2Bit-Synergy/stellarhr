@@ -1,8 +1,9 @@
 <h1>Update Offense </h1>
 
-<form>
+<form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
+    <button type="submit">UPDATE OFFENSE</button>
 </form>
 
 

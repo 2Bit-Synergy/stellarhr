@@ -7,9 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, DeleteView
+from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.detail import SingleObjectMixin, DetailView
 from .forms import AttendanceRecordForm, HRSettingForm, OffenseForm, RecognitionForm
 from .models import AttendanceRecord, Offense
 from django.shortcuts import get_object_or_404
@@ -100,34 +101,84 @@ class HRSettingUpdateView(UpdateView):
     
 
 class OffenseCreateView(CreateView):
-    model = Offense
-    template_name = 'hrperformance/log-offense.html'
-    form_class = OffenseForm
-    success_url = reverse_lazy('offense_create')
+        model = Offense
+        template_name = 'hrperformance/log-offense.html'
+        form_class = OffenseForm
+        success_url = reverse_lazy('temporary_sucess_url')
+        
+
+        
+        def get_initial(self):
+            initial = super().get_initial()
+            # Get the user object based on the ID passed in the URL
+            user_id = self.kwargs.get('id')
+            user = get_object_or_404(User, id=user_id)
+            employee = user.employee
+            # Set the 'employee' field in the initial data
+            initial['employee'] = employee
+            return initial
+        
+        def post(self, request, *args, **kwargs):
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+            
     
 
+class OffenseSummaryView(ListView):
+    model = Offense
+    template_name = 'hrperformance/offense-summary.html'
+    form_class = OffenseForm
+
+
+
+
+
+
+class OffenseDeleteView(DeleteView):
+    model = Offense
+    template_name = 'hrperformance/delete-offense.html'
+    success_url = reverse_lazy('temporary_sucess_url')
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+            success_url = self.get_success_url()
+            self.object.delete()
+            messages.success(request, 'Offense deleted successfully.')
+            return HttpResponseRedirect(success_url)
+        except Exception as e:
+            messages.error(request, f'An error occurred: {str(e)}')
+            return HttpResponseRedirect(reverse('temporary_failure_url'))  # Redirect to a failure URL
+
     
-    def get_initial(self):
-        initial = super().get_initial()
-        print(initial)
-        # Get the user object based on the ID passed in the URL
-        user_id = self.kwargs.get('id')
-        user = get_object_or_404(User, id=user_id)
-        employee = user.employee
-        # Set the 'employee' field in the initial data
-        initial['employee'] = employee
-        return initial
-    
-## CONTINUE HERE! FEB 27
-    
+
     
 class OffenseUpdateView(UpdateView, SingleObjectMixin):
     model = Offense
     template_name = 'hrperformance/update-offense.html'
     form_class = OffenseForm
+    success_url = reverse_lazy('temporary_sucess_url')
+
+
+
+
+
+class OffenseDetailView(DetailView):
+    model = Offense
+    template_name = 'hrperformance/offense-detail.html'
+    form_class = OffenseForm
+    success_url = reverse_lazy('temporary_sucess_url')
 
 
 
 
 def temporary_success_url(request):
     return HttpResponse("UPDATE SUCCESSFULL")
+
+
+
+def temporary_failure_url(request):
+    return HttpResponse("UNSUCCESSFULL")
