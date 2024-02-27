@@ -1,0 +1,5 @@
+<h1>OFFENSE Summary</h1>
+
+{% for offense in object_list %}
+{{ offense }} | <a href="{% url 'delete_offense' offense.id %}">Delete</a> | <a href="{% url 'update_offense' offense.id%}">Update</a> | <a href="{% url 'offense_detail' offense.id %}">Detail</a> <br>
+{% endfor %}

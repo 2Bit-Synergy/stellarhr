@@ -51,6 +51,9 @@ class Offense(models.Model):
     date = models.DateTimeField(blank=True, null=True)
     description = models.CharField(null=True)
     status = models.CharField(null=True)
+    
+    def __str__(self):
+        return f"{self.employee.user_id.first_name} {self.type}: {self.description}"
 
 
 class Recognition(models.Model):
