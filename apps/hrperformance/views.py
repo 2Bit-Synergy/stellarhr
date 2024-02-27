@@ -10,7 +10,11 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, FormView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+<<<<<<< HEAD
 from django.views.generic.detail import SingleObjectMixin, DetailView
+=======
+from django.views.generic.detail import SingleObjectMixin
+>>>>>>> d82dc23745dbccb4985b652e8fdbb86ab458cda1
 from .forms import AttendanceRecordForm, HRSettingForm, OffenseForm, RecognitionForm
 from .models import AttendanceRecord, Offense
 from django.shortcuts import get_object_or_404
@@ -101,6 +105,7 @@ class HRSettingUpdateView(UpdateView):
     
 
 class OffenseCreateView(CreateView):
+<<<<<<< HEAD
         model = Offense
         template_name = 'hrperformance/log-offense.html'
         form_class = OffenseForm
@@ -156,10 +161,34 @@ class OffenseDeleteView(DeleteView):
     
 
     
+=======
+    model = Offense
+    template_name = 'hrperformance/log-offense.html'
+    form_class = OffenseForm
+    success_url = reverse_lazy('offense_create')
+    
+
+    
+    def get_initial(self):
+        initial = super().get_initial()
+        print(initial)
+        # Get the user object based on the ID passed in the URL
+        user_id = self.kwargs.get('id')
+        user = get_object_or_404(User, id=user_id)
+        employee = user.employee
+        # Set the 'employee' field in the initial data
+        initial['employee'] = employee
+        return initial
+    
+## CONTINUE HERE! FEB 27
+    
+    
+>>>>>>> d82dc23745dbccb4985b652e8fdbb86ab458cda1
 class OffenseUpdateView(UpdateView, SingleObjectMixin):
     model = Offense
     template_name = 'hrperformance/update-offense.html'
     form_class = OffenseForm
+<<<<<<< HEAD
     success_url = reverse_lazy('temporary_sucess_url')
 
 
@@ -171,14 +200,20 @@ class OffenseDetailView(DetailView):
     template_name = 'hrperformance/offense-detail.html'
     form_class = OffenseForm
     success_url = reverse_lazy('temporary_sucess_url')
+=======
+>>>>>>> d82dc23745dbccb4985b652e8fdbb86ab458cda1
 
 
 
 
 def temporary_success_url(request):
+<<<<<<< HEAD
     return HttpResponse("UPDATE SUCCESSFULL")
 
 
 
 def temporary_failure_url(request):
     return HttpResponse("UNSUCCESSFULL")
+=======
+    return HttpResponse("UPDATE SUCCESSFULL")
+>>>>>>> d82dc23745dbccb4985b652e8fdbb86ab458cda1
