@@ -11,6 +11,7 @@ from django.views.generic.edit import CreateView, FormView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import SingleObjectMixin, DetailView
+from django.views.generic.detail import SingleObjectMixin, DetailView
 from .forms import AttendanceRecordForm, HRSettingForm, OffenseForm, RecognitionForm
 from .models import AttendanceRecord, Offense, Recognition
 from django.shortcuts import get_object_or_404
@@ -155,6 +156,34 @@ class OffenseDeleteView(DeleteView):
 
     
 
+class OffenseSummaryView(DeleteView):
+    model = Offense
+    template_name = 'hrperformance/offense-summary.html'
+    form_class = OffenseForm
+
+
+
+
+
+
+class OffenseDeleteView(DeleteView):
+    model = Offense
+    template_name = 'hrperformance/delete-offense.html'
+    success_url = reverse_lazy('temporary_sucess_url')
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+            success_url = self.get_success_url()
+            self.object.delete()
+            messages.success(request, 'Offense deleted successfully.')
+            return HttpResponseRedirect(success_url)
+        except Exception as e:
+            messages.error(request, f'An error occurred: {str(e)}')
+            return HttpResponseRedirect(reverse('temporary_failure_url'))  # Redirect to a failure URL
+
+    
+
     
 class OffenseUpdateView(UpdateView, SingleObjectMixin):
     model = Offense
@@ -172,6 +201,7 @@ class OffenseDetailView(DetailView):
     template_name = 'hrperformance/offense-detail.html'
     form_class = OffenseForm
     success_url = reverse_lazy('temporary_sucess_url')
+
 
 
 
@@ -209,8 +239,6 @@ class RecognitionDeleteView(DeleteView):
 
 
 
-
-
 def temporary_success_url(request):
     return HttpResponse("UPDATE SUCCESSFULL")
 
@@ -218,3 +246,4 @@ def temporary_success_url(request):
 
 def temporary_failure_url(request):
     return HttpResponse("UNSUCCESSFULL")
+
