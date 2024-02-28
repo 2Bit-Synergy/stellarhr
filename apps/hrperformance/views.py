@@ -234,7 +234,7 @@ class RecognitionSummaryView(ListView):
 class RecognitionDeleteView(DeleteView):
     model = Recognition
     template_name = 'hrperformance/delete-recognition.html'
-    success_url = reverse_lazy('temporary_sucess_url')
+    success_url = reverse_lazy('recognition_summary')
 
 
 

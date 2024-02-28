@@ -29,7 +29,7 @@ urlpatterns = [
     #TEMPORARY
     path('temporary-success-url/', views.temporary_success_url, name='temporary_sucess_url'),
 
-    path('temporary-failure-url/', views.temporary_failure_url, name='temporary_failure_url')
+    path('temporary-failure-url/', views.temporary_failure_url, name='temporary_failure_url'),
 
     path('temporary-failure-url/', views.temporary_failure_url, name='temporary_failure_url'),
     path('log-offense/<int:id>/', OffenseCreateView.as_view(), name="log_offense"),
