@@ -1,0 +1,8 @@
+<h1>DELETE RECOGNITION</h1>
+
+<h3>CONFIRM DELETION OF:</h3> {{ object }}
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">DELETE RECOGNITION</button>
+</form>

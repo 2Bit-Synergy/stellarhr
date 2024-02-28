@@ -1,0 +1,5 @@
+<h1>RECOGNITION SUMMARY</h1>
+
+{% for recognition in object_list %}
+{{ recognition }} | <a href="{% url 'update_recognition' recognition.pk %}">Update<a> | <a href="{% url 'recognition_detail' recognition.pk %}">Detail<a> | <a href="{% url 'delete_recognition' recognition.pk %}">Delete<a> <br>
+{% endfor %}

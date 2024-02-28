@@ -61,6 +61,9 @@ class Recognition(models.Model):
     title = models.CharField(null=True)
     description = models.TextField(null=True)
     
+    def __str__(self):
+        return f"{self.employee.user_id.first_name} {self.title} {self.description}"
+    
 
 # THIS MODEL IS FOR OPERATIONAL KPI ACHIEVEMENT
 # class Achievement(models.Model)
