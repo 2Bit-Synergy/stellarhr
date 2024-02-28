@@ -10,13 +10,10 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, FormView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-<<<<<<< HEAD
 from django.views.generic.detail import SingleObjectMixin, DetailView
-=======
-from django.views.generic.detail import SingleObjectMixin
->>>>>>> d82dc23745dbccb4985b652e8fdbb86ab458cda1
+from django.views.generic.detail import SingleObjectMixin, DetailView
 from .forms import AttendanceRecordForm, HRSettingForm, OffenseForm, RecognitionForm
-from .models import AttendanceRecord, Offense
+from .models import AttendanceRecord, Offense, Recognition
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from apps.employees.models import Employee
@@ -105,7 +102,6 @@ class HRSettingUpdateView(UpdateView):
     
 
 class OffenseCreateView(CreateView):
-<<<<<<< HEAD
         model = Offense
         template_name = 'hrperformance/log-offense.html'
         form_class = OffenseForm
@@ -160,36 +156,41 @@ class OffenseDeleteView(DeleteView):
 
     
 
-    
-=======
+class OffenseSummaryView(DeleteView):
     model = Offense
-    template_name = 'hrperformance/log-offense.html'
+    template_name = 'hrperformance/offense-summary.html'
     form_class = OffenseForm
-    success_url = reverse_lazy('offense_create')
+
+
+
+
+
+
+class OffenseDeleteView(DeleteView):
+    model = Offense
+    template_name = 'hrperformance/delete-offense.html'
+    success_url = reverse_lazy('temporary_sucess_url')
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+            success_url = self.get_success_url()
+            self.object.delete()
+            messages.success(request, 'Offense deleted successfully.')
+            return HttpResponseRedirect(success_url)
+        except Exception as e:
+            messages.error(request, f'An error occurred: {str(e)}')
+            return HttpResponseRedirect(reverse('temporary_failure_url'))  # Redirect to a failure URL
+
     
 
     
-    def get_initial(self):
-        initial = super().get_initial()
-        print(initial)
-        # Get the user object based on the ID passed in the URL
-        user_id = self.kwargs.get('id')
-        user = get_object_or_404(User, id=user_id)
-        employee = user.employee
-        # Set the 'employee' field in the initial data
-        initial['employee'] = employee
-        return initial
-    
-## CONTINUE HERE! FEB 27
-    
-    
->>>>>>> d82dc23745dbccb4985b652e8fdbb86ab458cda1
 class OffenseUpdateView(UpdateView, SingleObjectMixin):
     model = Offense
     template_name = 'hrperformance/update-offense.html'
     form_class = OffenseForm
-<<<<<<< HEAD
     success_url = reverse_lazy('temporary_sucess_url')
+
 
 
 
@@ -200,20 +201,49 @@ class OffenseDetailView(DetailView):
     template_name = 'hrperformance/offense-detail.html'
     form_class = OffenseForm
     success_url = reverse_lazy('temporary_sucess_url')
-=======
->>>>>>> d82dc23745dbccb4985b652e8fdbb86ab458cda1
+
+
+
+
+class RecognitionCreateView(CreateView):
+    model = Recognition
+    form_class = RecognitionForm
+    template_name = 'hrperformance/add-recognition.html'
+    success_url = reverse_lazy('recognition_summary')
+
+    
+
+class RecognitionUdpateView(UpdateView):
+    model = Recognition
+    form_class = RecognitionForm
+    template_name = 'hrperformance/update-recognition.html'
+    success_url = reverse_lazy('recognition_summary')
+
+
+
+
+class RecognitionDetailView(DetailView):
+    model = Recognition
+    template_name = 'hrperformance/recognition-detail.html'
+
+class RecognitionSummaryView(ListView):
+    model = Recognition
+    template_name = 'hrperformance/recognition-summary.html'
+    
+
+class RecognitionDeleteView(DeleteView):
+    model = Recognition
+    template_name = 'hrperformance/delete-recognition.html'
+    success_url = reverse_lazy('temporary_sucess_url')
 
 
 
 
 def temporary_success_url(request):
-<<<<<<< HEAD
     return HttpResponse("UPDATE SUCCESSFULL")
 
 
 
 def temporary_failure_url(request):
     return HttpResponse("UNSUCCESSFULL")
-=======
-    return HttpResponse("UPDATE SUCCESSFULL")
->>>>>>> d82dc23745dbccb4985b652e8fdbb86ab458cda1
+
