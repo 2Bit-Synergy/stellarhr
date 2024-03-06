@@ -314,7 +314,11 @@ class RecognitionSummaryView(ListView):
 class RecognitionDeleteView(DeleteView):
     model = Recognition
     template_name = 'hrperformance/delete-recognition.html'
+<<<<<<< HEAD
     success_url = reverse_lazy('recognition_summary')
+=======
+    success_url = reverse_lazy('temporary_sucess_url')
+>>>>>>> 58452ed8c24dc200c34d5d10aacd6743e042525d
 
 
 
@@ -326,3 +330,7 @@ def temporary_success_url(request):
 
 def temporary_failure_url(request):
     return HttpResponse("UNSUCCESSFULL")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 58452ed8c24dc200c34d5d10aacd6743e042525d
