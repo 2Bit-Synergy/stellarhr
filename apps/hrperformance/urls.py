@@ -33,7 +33,6 @@ urlpatterns = [
     path('update-offense/<int:pk>/', OffenseUpdateView.as_view(), name="update_offense"),
     path('update-detail/<int:pk>/', OffenseDetailView.as_view(), name="offense_detail"),
     path('offense-summary', OffenseSummaryView.as_view(), name="offense_summary"),
-
     path('log-offense/<int:id>/', OffenseCreateView.as_view(), name="log_offense")
 
 ]
