@@ -14,18 +14,43 @@ from django.views.generic.detail import SingleObjectMixin, DetailView
 from django.views.generic.detail import SingleObjectMixin, DetailView
 from .forms import AttendanceRecordForm, HRSettingForm, OffenseForm, RecognitionForm
 from .models import AttendanceRecord, Offense, Recognition
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from apps.employees.models import Employee
 from django.http import JsonResponse
 from django.utils import timezone
+
+
 
 class AttendanceRecordView(LoginRequiredMixin, CreateView):
     form_class = AttendanceRecordForm
     model = AttendanceRecord
     template_name = 'hrperformance/my-dashboard.html'
     success_url = reverse_lazy('my_dashboard')
-    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        employee_instance = get_object_or_404(Employee, user_id=current_user)
+        post_date = timezone.now().date()
+
+        # Check if the user has logged in
+        attendance_record_checker = AttendanceRecord.objects.filter(
+            employee=employee_instance,
+            timein__date=post_date
+        ).first()
+
+        # Check if the user has logged out
+        is_done_for_day = False
+        if attendance_record_checker and attendance_record_checker.timeout:
+            is_done_for_day = True
+
+        # Set context variables
+        context['is_time_in'] = attendance_record_checker is None or attendance_record_checker.timeout is not None
+        context['is_done_for_day'] = is_done_for_day
+
+        return context
+
     def post(self, request, *args, **kwargs):
         current_user = self.request.user
         employee_instance = get_object_or_404(Employee, user_id=current_user)
@@ -33,30 +58,85 @@ class AttendanceRecordView(LoginRequiredMixin, CreateView):
         post_date = timezone.now().date()
         employee_attendance = AttendanceRecord()
 
-        
         attendance_record_checker = AttendanceRecord.objects.filter(
             employee=employee_instance,
             timein__date=post_date
         ).first()
-        
+
         if attendance_record_checker:
             if attendance_record_checker.timeout is None:
                 attendance_record_checker.timeout = post_datetime_stamp
                 attendance_record_checker.save()
-                return HttpResponse("DONE LOGOUT")
+                return redirect('my_dashboard')
             else:
-                return HttpResponse("NKA LOGIN and LOGOUT NAKA")
-            
+                return redirect('my_dashboard')
         else:
             employee_attendance.employee = employee_instance
             employee_attendance.timein = post_datetime_stamp
             employee_attendance.save()
-            return HttpResponse("DONE LOGIN")  
+            return redirect('my_dashboard')
+        
+        
 
+# class AttendanceRecordView(LoginRequiredMixin, CreateView):
+#     form_class = AttendanceRecordForm
+#     model = AttendanceRecord
+#     template_name = 'hrperformance/my-dashboard.html'
+#     success_url = reverse_lazy('my_dashboard')
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         current_user = self.request.user
+#         employee_instance = get_object_or_404(Employee, user_id=current_user)
+#         post_date = timezone.now().date()
+
+#         attendance_record_checker = AttendanceRecord.objects.filter(
+#             employee=employee_instance,
+#             timein__date=post_date
+#         ).first()
         
-        
-        ### LOGIC IS NOW CORRECT, NEXT MOVE IS TO INCLUDE TYPE IN THE CONDITION AND IMPLEMENT PROPER REDIRECT, 
-        
+
+#         context['is_time_in'] = attendance_record_checker is None or attendance_record_checker.timeout is not None
+#         return context
+
+#     def post(self, request, *args, **kwargs):
+#         current_user = self.request.user
+#         employee_instance = get_object_or_404(Employee, user_id=current_user)
+#         post_datetime_stamp = timezone.now()
+#         post_date = timezone.now().date()
+#         employee_attendance = AttendanceRecord()
+
+#         attendance_record_checker = AttendanceRecord.objects.filter(
+#             employee=employee_instance,
+#             timein__date=post_date
+#         ).first()
+
+#         if attendance_record_checker:
+#             if attendance_record_checker.timeout is None:
+#                 attendance_record_checker.timeout = post_datetime_stamp
+#                 attendance_record_checker.save()
+#                 return redirect('my_dashboard')
+#             else:
+#                 return redirect('my_dashboard')
+#         else:
+#             employee_attendance.employee = employee_instance
+#             employee_attendance.timein = post_datetime_stamp
+#             employee_attendance.save()
+#             return redirect('my_dashboard')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class HRSettingUpdateView(UpdateView):
     model = HRSetting
