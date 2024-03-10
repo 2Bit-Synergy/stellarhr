@@ -14,18 +14,44 @@ from django.views.generic.detail import SingleObjectMixin, DetailView
 from django.views.generic.detail import SingleObjectMixin, DetailView
 from .forms import AttendanceRecordForm, HRSettingForm, OffenseForm, RecognitionForm
 from .models import AttendanceRecord, Offense, Recognition
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from apps.employees.models import Employee
 from django.http import JsonResponse
 from django.utils import timezone
+from django.contrib.auth.models import Group
 
+
+#ATTENDACE RECORD VIEWS
 class AttendanceRecordView(LoginRequiredMixin, CreateView):
     form_class = AttendanceRecordForm
     model = AttendanceRecord
     template_name = 'hrperformance/my-dashboard.html'
     success_url = reverse_lazy('my_dashboard')
-    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        employee_instance = get_object_or_404(Employee, user_id=current_user)
+        post_date = timezone.now().date()
+
+        # Check if the user has logged in
+        attendance_record_checker = AttendanceRecord.objects.filter(
+            employee=employee_instance,
+            timein__date=post_date
+        ).first()
+
+        # Check if the user has logged out
+        is_done_for_day = False
+        if attendance_record_checker and attendance_record_checker.timeout:
+            is_done_for_day = True
+
+        # Set context variables
+        context['is_time_in'] = attendance_record_checker is None or attendance_record_checker.timeout is not None
+        context['is_done_for_day'] = is_done_for_day
+
+        return context
+
     def post(self, request, *args, **kwargs):
         current_user = self.request.user
         employee_instance = get_object_or_404(Employee, user_id=current_user)
@@ -33,40 +59,70 @@ class AttendanceRecordView(LoginRequiredMixin, CreateView):
         post_date = timezone.now().date()
         employee_attendance = AttendanceRecord()
 
-        
         attendance_record_checker = AttendanceRecord.objects.filter(
             employee=employee_instance,
             timein__date=post_date
         ).first()
-        
+
         if attendance_record_checker:
             if attendance_record_checker.timeout is None:
                 attendance_record_checker.timeout = post_datetime_stamp
                 attendance_record_checker.save()
-                return HttpResponse("DONE LOGOUT")
+                return redirect('my_dashboard')
             else:
-                return HttpResponse("NKA LOGIN and LOGOUT NAKA")
-            
+                return redirect('my_dashboard')
         else:
             employee_attendance.employee = employee_instance
             employee_attendance.timein = post_datetime_stamp
             employee_attendance.save()
-            return HttpResponse("DONE LOGIN")  
-
-        
-        
-        ### LOGIC IS NOW CORRECT, NEXT MOVE IS TO INCLUDE TYPE IN THE CONDITION AND IMPLEMENT PROPER REDIRECT, 
+            return redirect('my_dashboard')
         
 
-class HRSettingUpdateView(UpdateView):
-    model = HRSetting
-    form_class = HRSettingForm
-    template_name = 'hrperformance/hr-settings.html'  # Your template name
-    success_url = '/success-url/'  # URL to redirect after successful form submission
+class AttendanceSummaryView(ListView):
+    model  = AttendanceRecord
+    template_name = 'hrperformance/attendance-summary.html'
+    
+    def get_queryset(self):
+        # Get the current user's groups
+        user_groups = self.request.user.groups.all()
+        
+        # Check if the user belongs to the HR group
+        if any(group.name == 'HR' for group in user_groups):
+            # If yes, return all attendance records
+            attendance_records = AttendanceRecord.objects.all()
+            return attendance_records
+        else:
+            # If not, return only the attendance records of the requesting user
+            attendance_records = AttendanceRecord.objects.filter(employee=self.request.user.employee)
+            return attendance_records
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['attendance_records'] = self.get_queryset()
+        return context
+        
+
+
+class AttendanceRecordDetailView(DetailView):
+    model = AttendanceRecord
+    template_name = 'hrperformance/attendance-detail.html'
+    
+
+class AttendanceRecordEditView(UpdateView):
+    model = AttendanceRecord
+    template_name = 'hrperformance/edit-attendance-record.html'
+    fields = '__all__'
+    success_url = reverse_lazy('attendance_summary')
     
     
+class AttendanceRecordDeleteView(DeleteView):
+    model = AttendanceRecord
+    template_name = 'hrperformance/delete-attendance-record.html'
+    success_url = reverse_lazy('attendance_summary')
+
+
     
-    
+#HR SETTINGS VIEWS  
 class HRSettingUpdateView(UpdateView):
     model = HRSetting
     form_class = HRSettingForm
@@ -100,7 +156,7 @@ class HRSettingUpdateView(UpdateView):
     
     
     
-
+#OFFENSE VIEWS
 class OffenseCreateView(CreateView):
         model = Offense
         template_name = 'hrperformance/log-offense.html'
@@ -127,42 +183,12 @@ class OffenseCreateView(CreateView):
                 return self.form_invalid(form)
             
     
+    
 
 class OffenseSummaryView(ListView):
     model = Offense
     template_name = 'hrperformance/offense-summary.html'
-    form_class = OffenseForm
-
-
-
-
-
-
-class OffenseDeleteView(DeleteView):
-    model = Offense
-    template_name = 'hrperformance/delete-offense.html'
-    success_url = reverse_lazy('temporary_sucess_url')
-
-    def delete(self, request, *args, **kwargs):
-        try:
-            self.object = self.get_object()
-            success_url = self.get_success_url()
-            self.object.delete()
-            messages.success(request, 'Offense deleted successfully.')
-            return HttpResponseRedirect(success_url)
-        except Exception as e:
-            messages.error(request, f'An error occurred: {str(e)}')
-            return HttpResponseRedirect(reverse('temporary_failure_url'))  # Redirect to a failure URL
-
-    
-
-class OffenseSummaryView(DeleteView):
-    model = Offense
-    template_name = 'hrperformance/offense-summary.html'
-    form_class = OffenseForm
-
-
-
+    # form_class = OffenseForm
 
 
 
@@ -183,7 +209,6 @@ class OffenseDeleteView(DeleteView):
             return HttpResponseRedirect(reverse('temporary_failure_url'))  # Redirect to a failure URL
 
     
-
     
 class OffenseUpdateView(UpdateView, SingleObjectMixin):
     model = Offense
@@ -193,18 +218,24 @@ class OffenseUpdateView(UpdateView, SingleObjectMixin):
 
 
 
-
-
-
 class OffenseDetailView(DetailView):
     model = Offense
     template_name = 'hrperformance/offense-detail.html'
     form_class = OffenseForm
     success_url = reverse_lazy('temporary_sucess_url')
+    
 
 
 
 
+
+
+
+
+
+
+
+#RECOGNITION VIEWS
 class RecognitionCreateView(CreateView):
     model = Recognition
     form_class = RecognitionForm
@@ -212,14 +243,11 @@ class RecognitionCreateView(CreateView):
     success_url = reverse_lazy('recognition_summary')
 
     
-
 class RecognitionUdpateView(UpdateView):
     model = Recognition
     form_class = RecognitionForm
     template_name = 'hrperformance/update-recognition.html'
     success_url = reverse_lazy('recognition_summary')
-
-
 
 
 class RecognitionDetailView(DetailView):
@@ -234,16 +262,19 @@ class RecognitionSummaryView(ListView):
 class RecognitionDeleteView(DeleteView):
     model = Recognition
     template_name = 'hrperformance/delete-recognition.html'
-    success_url = reverse_lazy('temporary_sucess_url')
+    success_url = reverse_lazy('recognition_summary')
 
 
 
 
+
+
+
+
+#TEMPORARY HANDLERS
 def temporary_success_url(request):
     return HttpResponse("UPDATE SUCCESSFULL")
 
 
-
 def temporary_failure_url(request):
     return HttpResponse("UNSUCCESSFULL")
-

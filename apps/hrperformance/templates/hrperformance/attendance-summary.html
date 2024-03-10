@@ -1,0 +1,4 @@
+<h1>Attendance Summary</h1>
+{% for attendance in attendance_records %} <br>
+{{ attendance }} | <a href="{% url 'edit_attendance_record' attendance.pk %}">Edit</a> | <a href="{% url 'attendance_detail' attendance.pk %}">Details</a> | <a href="{% url 'delete_attendance_record' attendance.pk %}">Delete</a>
+{% endfor %}
