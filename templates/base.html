@@ -79,13 +79,12 @@
 		<script src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
 
 		 <!-- Theme Settings JS -->
-		<script src="{% static 'js/layout.js' %}"></script>
+		{% comment %} <script src="{% static 'js/layout.js' %}"></script> <!--TEMPORARY DISABLED DUE TO FREQUENT REFRESH WHEN USER LOGGIN GROUP IS EMPLOYEE--> {% endcomment %}
 		<script src="{% static 'js/theme-settings.js' %}"></script>
 		<script src="{% static 'js/greedynav.js' %}"></script>
 		
 		<!-- Custom JS -->
 		<script src="{% static 'js/app.js' %}"></script>
-		{% comment %} Custom JS for specific pages {% endcomment %}
 		{% block js %}{% endblock %}
     </body>
 </html>
